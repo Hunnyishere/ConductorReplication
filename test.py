@@ -1,37 +1,7 @@
-from flask import Flask, render_template, request
-from datetime import timedelta
-from werkzeug.utils import secure_filename
-import os
-from flask_restful import request
 import pddlpy
 import requests, sys
 import copy
-
-app = Flask(__name__)
-# project_basepath = os.path.abspath('.')
-
-
-#index	
-@app.route("/")
-def index():
-	# action_dict = load_data()
-	#action_list = create_action_list()
-	# load data from file
-	pddl_basepath = "./blocksworld_missing/Preconditions_missing/setting_1"
-	domain_file = os.path.join(pddl_basepath,"robot.pddl")
-	problem_file = os.path.join(pddl_basepath,"prob4-2.pddl")
-	plg = PlanGenerator(domain_file,problem_file)
-	plg.generate_plan()
-	plg.load_pddl()
-	plg.create_selects_for_pre_eff()
-	plg.create_precondition_list()
-	plg.create_precondition_dict()
-	plg.create_effect_dict()
-	plg.create_effect_duration()
-	plg.load_negative_effect_action_dict()
-	plg.tuple_to_str()
-	plg.all_in_dict()
-	return render_template('index.html', name="index", data=plg.data, ori_data=plg.ori_data)
+import os
 
 
 class PlanGenerator:
@@ -415,8 +385,32 @@ class PlanGenerator:
 		self.ori_data = copy.deepcopy(self.data)
 
 
-if __name__ == '__main__':
-	app.jinja_env.auto_reload = True
-	app.config['TEMPLATES_AUTO_RELOAD'] = True
-	app.config['SEND_FILE_MAX_AGE_DEFAULT'] = timedelta(seconds=1)
-	app.run(host='0.0.0.0',port=5000,debug=True)
+
+
+
+pddl_basepath = "./blocksworld_missing/Preconditions_missing/setting_1"
+domain_file = os.path.join(pddl_basepath,"robot.pddl")
+problem_file = os.path.join(pddl_basepath,"prob4-2.pddl")
+plg = PlanGenerator(domain_file,problem_file)
+plg.generate_plan()
+plg.load_pddl()
+plg.create_selects_for_pre_eff()
+plg.create_precondition_list()
+plg.create_precondition_dict()
+plg.create_effect_dict()
+plg.create_effect_duration()
+plg.load_negative_effect_action_dict()
+plg.tuple_to_str()
+plg.all_in_dict()
+print("action_list:\n",plg.action_list)
+print("action_dict:\n",plg.action_dict)
+print("negative_effect_action_dict:\n",plg.negative_effect_action_dict)
+print("operators:",plg.operators)
+print("op_acts:",plg.op_acts)
+print("objects:",plg.objects)
+print("pre_acts:",plg.pre_acts)
+print("eff_acts:",plg.eff_acts)
+print("precondition_list:\n",plg.precondition_list)
+print("precondition_dict:\n",plg.precondition_dict)
+print("effect_dict:\n",plg.effect_dict)
+print("effect_duration:\n",plg.effect_duration)

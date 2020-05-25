@@ -17,7 +17,8 @@ def index():
 	# action_dict = load_data()
 	#action_list = create_action_list()
 	# load data from file
-	pddl_basepath = "./blocksworld_missing/Preconditions_missing/setting_1"
+	# pddl_basepath = "./blocksworld_missing/Preconditions_missing/setting_1"
+	pddl_basepath = "./"
 	domain_file = os.path.join(pddl_basepath,"robot.pddl")
 	problem_file = os.path.join(pddl_basepath,"prob4-2.pddl")
 	plg = PlanGenerator(domain_file,problem_file)

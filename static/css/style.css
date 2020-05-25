@@ -1,6 +1,6 @@
 div.action{
     display: block;
-    width: 300px;
+    width: 500px;
     height: 50px;
     padding: 8px;
     border: 1px solid blue;    
@@ -24,26 +24,12 @@ font.actionText{
     right: 0;
     left: 0;
 }
-#link_row > [class*='col-'] {
-    padding-right: 0;
-    padding-left: 0;
+.new_svg:hover .new_link{
+    fill: #DA4567;
 }
-div#link{
-    display: inline-block;
-    width: 10px;
-    height: 40px;
-    padding: 0px;
-    /* margin-right: 7px; */
-    position:relative;
-    background-color: orange;
-}
-div#cap{
-    width: 5px;
-    height: 8px;
-    border-radius: 100% 100% 0 0;
-    position:absolute;
-    background: blue;
-}
+
+
+
 .actionText{
     color: blue;
     vertical-align: baseline;
@@ -51,4 +37,29 @@ div#cap{
 
 .checkbox_label{
     display:block;
+}
+
+/* animation */
+@keyframes scaleDraw {  /*定义关键帧、scaleDrew是需要绑定到选择器的关键帧名称*/
+    0%{
+        transform: scale(1.2);
+    }
+    50%{
+        transform: scale(0);
+    }
+    100%{
+        transform: scale(1.2);
+    }
+}
+
+/* path.new_cap */
+/* .scaleTransition{
+    animation: scaleDraw 1s;
+} */
+
+.scaleTransition{
+    animation-name: scaleDraw; /*关键帧名称*/
+    animation-timing-function: ease-in-out; /*动画的速度曲线*/
+    animation-iteration-count: 3;  /*动画播放的次数*/
+    animation-duration: 1s; /*动画所花费的时间*/
 }

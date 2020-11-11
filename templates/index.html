@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>My Conductor</title>
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <!-- Add icon library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="static/css/style.css">
+</head>
+
+<body>
+
+    <div class="jumbotron text-center">
+        <h1>Conductor</h1>
+        <p></p>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-4  container">
+                <button class="btn btn-primary" id="reset_planning_button">Reset Planning</button>
+                <button class="btn btn-primary" id="expand_planning_button">Expand Planning</button>
+                <button class="btn btn-primary" id="new_action_button">Add Action</button>
+                <p></p>
+                <div id="planning"></div>
+            </div>
+            <div class="col-md-4">
+                <button class="btn btn-primary" id="show_all_button">Show All</button>
+                <button class="btn btn-primary" id="hide_all_button">Hide All</button>
+                <p></p>
+                <div id="show-actions" class="list-group">
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div id="create_action_layout"></div>
+                <div id="new_action_layout"></div>
+                <div id="create_precondition_layout"></div>
+            </div>
+            <div class="col-md-1"></div>
+        </div>
+    </div>
+
+
+    <!--    jquery, bootstrap, icon JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src='https://kit.fontawesome.com/a076d05399.js'></script>
+    <script type="text/javascript" src="static/js/js-colormaps.js"></script>
+    <script>
+        let myData;
+        let action_list;
+        let action_dict;
+        let precondition_list;
+        let effect_list;
+        let effect_duration;
+        let objects;
+        let pre_selects;
+        let pre_params;
+        let action_selects;
+        let action_params;
+        let color_set;
+        let color_idx;
+        $(document).ready(function () {
+
+            // 这几个list要随改随更新！！
+            myData = {{ data | tojson }};
+            // get data from python flask and load to params
+            loadInitialSetting();
+
+            // load initial plan
+            createPlanning();
+        });
+
+
+
+        // --------Define functions below-------------
+        function loadInitialSetting(){
+            console.log(myData);
+            action_list = myData["action_list"];
+            action_dict = myData["action_dict"];
+            precondition_list = myData["precondition_list"];
+            effect_list = myData["effect_list"];
+            effect_duration = myData["effect_duration"];
+            objects = myData["objects"];
+            pre_selects = myData["pre_selects"];
+            pre_params = myData["pre_params"];
+            action_selects = myData["action_selects"];
+            action_params = myData["action_params"];
+            // set colors
+            color_idx = 12;
+            color_set = cmap_rainbow(120);
+        }
+
+        // color map
+        function cmap_rainbow(valcnt, cyclelen = null, s = 100, l = 50, stepsize = 1) {
+            if (cyclelen == null)
+                cyclelen = valcnt;
+            let cm = new Array(valcnt);
+            /* Deliberately exclude the endpoint because it's cyclic. */
+            let step;
+            if (cyclelen <= 2)
+                step = 360;
+            else
+                step = 360. / (cyclelen - 1);
+            for (let i = 0; i < valcnt * stepsize; i += stepsize) {
+                let h = Math.round((i % cyclelen) * step);
+                // Use this if you want hsl values:
+                //cm[i] = 'hsl(' + h + ',' + s + '%,' + l + '%)';
+                // Use this if you want rgb values:
+                let rgb = hslToRgb(h / 360., s / 100., l / 100.);
+                cm[i] = 'rgb(' + Math.round(rgb[0]) + ',' +
+                    Math.round(rgb[1]) + ',' + Math.round(rgb[2]) + ')';
+            }
+            return cm;
+        }
+
+        function hslToRgb(h, s, l) {
+            let r, g, b;
+
+            if (s == 0) {
+                r = g = b = l; // achromatic
+            } else {
+                function hue2rgb(p, q, t) {
+                    if (t < 0) t += 1;
+                    if (t > 1) t -= 1;
+                    if (t < 1 / 6) return p + (q - p) * 6 * t;
+                    if (t < 1 / 2) return q;
+                    if (t < 2 / 3) return p + (q - p) * (2 / 3 - t) * 6;
+                    return p;
+                }
+
+                let q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+                let p = 2 * l - q;
+                r = hue2rgb(p, q, h + 1 / 3);
+                g = hue2rgb(p, q, h);
+                b = hue2rgb(p, q, h - 1 / 3);
+            }
+
+            return [r * 255, g * 255, b * 255];
+        }
+
+    </script>
+    <script src="static/js/loadPlan.js"></script>
+    <script type="text/javascript" src="static/js/removeAction.js"></script>
+    <script type="text/javascript" src="static/js/reorderAction.js"></script>
+    <script type="text/javascript" src="static/js/deletePreEff.js"></script>
+    <script type="text/javascript" src="static/js/displayActionInfo.js"></script>
+    <script type="text/javascript" src="static/js/loadNewActionSelects.js"></script>
+    <script type="text/javascript" src="static/js/loadNewPreSelects.js"></script>
+    <script type="text/javascript" src="static/js/showPreAnimation.js"></script>
+    <script type="text/javascript" src="static/js/undoFunctions.js"></script>
+
+</body>
+
+</html>

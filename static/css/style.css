@@ -1,0 +1,52 @@
+div.action-row-div, div.new-action-div{
+    display: block;
+    width: 625px;
+    height: 50px;
+    padding: 8px;
+    border: 1px solid blue;    
+    background-color: white;
+    text-align: center;
+    vertical-align: middle;
+    position:relative;
+}
+
+button.action_delete_button{
+    position:absolute;
+    right:0px;
+}
+.action-pre-svg{
+    margin-left:0;
+    margin-right:0;
+    padding-left: 0;
+    padding-right:0;
+}
+.action-pre-svg:hover .new_link{
+    fill: #DA4567;
+}
+
+/* animation */
+@keyframes scaleLink {
+    0%{
+        transform: scale(1.2);
+    }
+    50%{
+        transform: scale(0);
+    }
+    100%{
+        transform: scale(1.2);
+    }
+}
+
+.miss-pos-pre-link{
+    animation-name: scaleLink;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: 3;
+    animation-duration: 1s;
+}
+
+.miss-neg-pre-link{
+    animation-name: scaleLink;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: 3;
+    animation-duration: 1s;
+}

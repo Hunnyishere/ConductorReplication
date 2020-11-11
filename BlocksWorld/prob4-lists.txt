@@ -1,0 +1,218 @@
+action_list:
+ ['Initial State', 
+ "('pick-up', 'B')", 
+ "('stack', 'B', 'A')", 
+ "('pick-up', 'C')", 
+ "('stack', 'C', 'B')", 
+ "('pick-up', 'D')", 
+ "('stack', 'D', 'C')", 
+ 'Goal State']
+
+
+
+action_dict:
+ {'Initial State': 
+	{'Precondition': [], 
+	'Effect': ["('clear', 'D')", "('handempty',)", "('clear', 'C')", "('ontable', 'A')", "('clear', 'A')", "('ontable', 'C')", "('ontable', 'B')", "('clear', 'B')", "('ontable', 'D')"]}, 
+"('pick-up', 'B')": 
+	{'Precondition': ["('clear', 'B')", "('ontable', 'B')", "('handempty',)"], 
+	'Effect': ["('holding', 'B')"]}, 
+"('stack', 'B', 'A')": 
+	{'Precondition': ["('holding', 'B')", "('clear', 'A')"], 
+	'Effect': ["('on', 'B', 'A')", "('handempty',)", "('clear', 'B')"]}, 
+"('pick-up', 'C')": 
+	{'Precondition': ["('clear', 'C')", "('handempty',)", "('ontable', 'C')"], 
+	'Effect': ["('holding', 'C')"]}, 
+"('stack', 'C', 'B')": 
+	{'Precondition': ["('holding', 'C')", "('clear', 'B')"], 
+	'Effect': ["('on', 'C', 'B')", "('handempty',)", "('clear', 'C')"]}, 
+"('pick-up', 'D')": 
+	{'Precondition': ["('clear', 'D')", "('ontable', 'D')", "('handempty',)"], 
+	'Effect': ["('holding', 'D')"]}, 
+"('stack', 'D', 'C')": 
+	{'Precondition': ["('holding', 'D')", "('clear', 'C')"], 
+	'Effect': ["('on', 'D', 'C')", "('handempty',)", "('clear', 'D')"]}, 
+'Goal State': 
+	{'Precondition': ["('on', 'C', 'B')", "('on', 'B', 'A')", "('on', 'D', 'C')"], 
+	'Effect': []}}
+
+
+原：
+negative_effect_action_dict:
+ {'Initial State': 
+	{'Precondition': [], 
+	'Effect': [('clear', 'D'), ('handempty',), ('clear', 'C'), ('ontable', 'A'), ('clear', 'A'), ('ontable', 'C'), ('ontable', 'B'), ('clear', 'B'), ('ontable', 'D')]}, 
+('pick-up', 'B'): 
+	{'Precondition': [('clear', 'B'), ('ontable', 'B'), ('handempty',)], 
+	'Effect': [('holding', 'B'), ('!', 'handempty'), ('!', 'ontable', 'B'), ('!', 'clear', 'B')]}, 
+('stack', 'B', 'A'): 
+	{'Precondition': [('holding', 'B'), ('clear', 'A')], 
+	'Effect': [('on', 'B', 'A'), ('handempty',), ('clear', 'B'), ('!', 'holding', 'B'), ('!', 'clear', 'A')]}, 
+('pick-up', 'C'): 
+	{'Precondition': [('clear', 'C'), ('handempty',), ('ontable', 'C')], 
+	'Effect': [('holding', 'C'), ('!', 'handempty'), ('!', 'clear', 'C'), ('!', 'ontable', 'C')]}, 
+('stack', 'C', 'B'): 
+	{'Precondition': [('holding', 'C'), ('clear', 'B')], 
+	'Effect': [('on', 'C', 'B'), ('handempty',), ('clear', 'C'), ('!', 'holding', 'C'), ('!', 'clear', 'B')]}, 
+('pick-up', 'D'): 
+	{'Precondition': [('clear', 'D'), ('ontable', 'D'), ('handempty',)], 
+	'Effect': [('holding', 'D'), ('!', 'clear', 'D'), ('!', 'ontable', 'D'), ('!', 'handempty')]}, 
+('stack', 'D', 'C'): 
+	{'Precondition': [('holding', 'D'), ('clear', 'C')], 
+	'Effect': [('on', 'D', 'C'), ('handempty',), ('clear', 'D'), ('!', 'holding', 'D'), ('!', 'clear', 'C')]}, 
+'Goal State': 
+	{'Precondition': [('on', 'C', 'B'), ('on', 'B', 'A'), ('on', 'D', 'C')], 
+	'Effect': []}}
+
+新：
+negative_effect_action_dict:
+ {'Initial State': 
+ 	{'Precondition': [], 
+ 	'Effect': 
+ 		{'pos': ["('ontable', 'B')", "('clear', 'C')", "('ontable', 'D')", "('ontable', 'C')", "('clear', 'A')", "('handempty',)", "('clear', 'B')", "('ontable', 'A')", "('clear', 'D')"], 
+ 		'neg': []}}, 
+ 	"('pick-up', 'B')": 
+ 		{'Precondition': ["('handempty',)", "('clear', 'B')", "('ontable', 'B')"], 
+ 		'Effect': 
+ 			{'pos': ["('holding', 'B')"], 
+ 			'neg': ["('handempty',)", "('clear', 'B')", "('ontable', 'B')"]}}, 
+ 	"('stack', 'B', 'A')": 
+ 		{'Precondition': ["('holding', 'B')", "('clear', 'A')"], 
+ 		'Effect': 
+ 			{'pos': ["('clear', 'B')", "('handempty',)", "('on', 'B', 'A')"], 
+ 			'neg': ["('holding', 'B')", "('clear', 'A')"]}}, 
+ 	"('pick-up', 'C')": 
+ 		{'Precondition': ["('clear', 'C')", "('ontable', 'C')", "('handempty',)"], 
+ 		'Effect': 
+ 			{'pos': ["('holding', 'C')"], 
+ 			'neg': ["('handempty',)", "('ontable', 'C')", "('clear', 'C')"]}}, 
+ 	"('stack', 'C', 'B')": 
+ 		{'Precondition': ["('holding', 'C')", "('clear', 'B')"], 
+ 		'Effect': 
+ 			{'pos': ["('clear', 'C')", "('handempty',)", "('on', 'C', 'B')"], 
+ 			'neg': ["('holding', 'C')", "('clear', 'B')"]}}, 
+ 	"('pick-up', 'D')": 
+ 		{'Precondition': ["('clear', 'D')", "('handempty',)", "('ontable', 'D')"], 
+ 		'Effect': 
+ 			{'pos': ["('holding', 'D')"], 
+ 			'neg': ["('clear', 'D')", "('handempty',)", "('ontable', 'D')"]}}, 
+ 	"('stack', 'D', 'C')": 
+ 		{'Precondition': ["('holding', 'D')", "('clear', 'C')"], 
+ 		'Effect': 
+ 			{'pos': ["('clear', 'D')", "('handempty',)", "('on', 'D', 'C')"], 
+ 			'neg': ["('holding', 'D')", "('clear', 'C')"]}}, 
+ 	'Goal State': 
+ 		{'Precondition': ["('on', 'C', 'B')", "('on', 'B', 'A')", "('on', 'D', 'C')"], 
+ 		'Effect': 
+ 			{'pos': [], 
+ 			'neg': []}}}
+
+
+operators: ['pick-up', 'put-down', 'stack', 'unstack']
+op_acts: {'pick-up': 2, 'put-down': 2, 'stack': 3, 'unstack': 3}
+objects: ['A', 'D', 'C', 'B']
+pre_acts: {'ontable': 2, 'handempty': 1, 'clear': 2, 'holding': 2, 'on': 3}
+eff_acts: {'holding': 2, 'ontable': 2, 'handempty': 1, 'clear': 2, 'on': 3}
+
+
+precondition_list:  用effect duration更新precondition_list
+ ["('clear', 'C')", 
+ "('ontable', 'A')", 
+ "('handempty',)", 
+ "('clear', 'A')", 
+ "('ontable', 'C')", 
+ "('ontable', 'B')", 
+ "('clear', 'B')", 
+ "('ontable', 'D')", 
+ "('clear', 'D')", 
+ "('holding', 'B')", 
+ "('on', 'B', 'A')", 
+ "('holding', 'C')", 
+ "('on', 'C', 'B')", 
+ "('holding', 'D')", 
+ "('on', 'D', 'C')"]
+ 
+ 
+precondition_dict:
+{"('clear', 'D')": ["('pick-up', 'D')"], 
+"('handempty',)": ["('pick-up', 'B')", "('pick-up', 'C')", "('pick-up', 'D')"], 
+"('clear', 'C')": ["('pick-up', 'C')", "('stack', 'D', 'C')"], 
+"('ontable', 'A')": [],                             !!还是有点问题add delete都
+"('clear', 'A')": ["('stack', 'B', 'A')"], 
+"('ontable', 'C')": ["('pick-up', 'C')"], 
+"('ontable', 'B')": ["('pick-up', 'B')"], 
+"('clear', 'B')": ["('pick-up', 'B')", "('stack', 'C', 'B')"], 
+"('ontable', 'D')": ["('pick-up', 'D')"], 
+"('holding', 'B')": ["('stack', 'B', 'A')"], 
+"('on', 'B', 'A')": ['Goal State'], 
+"('holding', 'C')": ["('stack', 'C', 'B')"], 
+"('on', 'C', 'B')": ['Goal State'], 
+"('holding', 'D')": ["('stack', 'D', 'C')"], 
+"('on', 'D', 'C')": ['Goal State']}
+
+
+effect_dict:  not -> cannot be as the next action's precondition, until another action have the same effect
+ {"('ontable', 'B')": 
+	{'pos': ['Initial State'], 
+	'neg': ["('pick-up', 'B')"]}, 
+"('clear', 'B')": 
+	{'pos': ['Initial State', "('stack', 'B', 'A')"], 
+	'neg': ["('pick-up', 'B')", "('stack', 'C', 'B')"]}, 
+"('ontable', 'D')": 
+	{'pos': ['Initial State'], 
+	'neg': ["('pick-up', 'D')"]}, 
+"('clear', 'C')": 
+	{'pos': ['Initial State', "('stack', 'C', 'B')"], 
+	'neg': ["('pick-up', 'C')", "('stack', 'D', 'C')"]}, 
+"('clear', 'D')": 
+	{'pos': ['Initial State', "('stack', 'D', 'C')"], 
+	'neg': ["('pick-up', 'D')"]}, 
+"('handempty',)": 
+	{'pos': ['Initial State', "('stack', 'B', 'A')", "('stack', 'C', 'B')", "('stack', 'D', 'C')"], 
+	'neg': ["('pick-up', 'B')", "('pick-up', 'C')", "('pick-up', 'D')"]}, 
+"('ontable', 'A')": 
+	{'pos': ['Initial State'], 
+	'neg': []}, 
+"('clear', 'A')": 
+	{'pos': ['Initial State'], 
+	'neg': ["('stack', 'B', 'A')"]}, 
+"('ontable', 'C')": 
+	{'pos': ['Initial State'], 
+	'neg': ["('pick-up', 'C')"]}, 
+"('holding', 'B')": 
+	{'pos': ["('pick-up', 'B')"], 
+	'neg': ["('stack', 'B', 'A')"]}, 
+"('on', 'B', 'A')": 
+	{'pos': ["('stack', 'B', 'A')"], 
+	'neg': []}, 
+"('holding', 'C')": 
+	{'pos': ["('pick-up', 'C')"], 
+	'neg': ["('stack', 'C', 'B')"]}, 
+"('on', 'C', 'B')": 
+	{'pos': ["('stack', 'C', 'B')"], 
+	'neg': []}, 
+"('holding', 'D')": 
+	{'pos': ["('pick-up', 'D')"], 
+	'neg': ["('stack', 'D', 'C')"]}, 
+"('on', 'D', 'C')": 
+	{'pos': ["('stack', 'D', 'C')"], 
+	'neg': []}}
+
+
+
+effect_duration:
+ {"('ontable', 'D')": [(0, 5)], 
+ "('clear', 'D')": [(0, 5), (6,)], 
+ "('handempty',)": [(0, 1), (2, 3), (4, 5), (6,)], 
+ "('clear', 'C')": [(0, 3), (4, 6)], 
+ "('ontable', 'A')": [(0,)], 
+ "('clear', 'A')": [(0, 2)], 
+ "('ontable', 'C')": [(0, 3)], 
+ "('ontable', 'B')": [(0, 1)], 
+ "('clear', 'B')": [(0, 1), (2, 4)],   # clear B 1-2之间如果添加会有红色cap
+ "('holding', 'B')": [(1, 2)], 
+ "('on', 'B', 'A')": [(2,)], 
+ "('holding', 'C')": [(3, 4)], 
+ "('on', 'C', 'B')": [(4,)], 
+ "('holding', 'D')": [(5, 6)], 
+ "('on', 'D', 'C')": [(6,)]}

@@ -1,12 +1,28 @@
 import re, copy
+import json
 # PDDL parser, plan generator
 from pddl_parser.planner import *
 import pddl_parser.PDDL
 
 class PlanGenerator:
-    def __init__(self, domain_file, problem_file):
-        self.domain_file = domain_file
-        self.problem_file = problem_file
+    def __init__(self, domain_file=None, problem_file=None, plan_file=None, stored_plg=None):
+        print("domain_file:",domain_file)
+        print("problem_file:",problem_file)
+        # first-time initialization
+        if domain_file is not None:
+            self.domain_file = domain_file
+            self.problem_file = problem_file
+            self.plan_file = plan_file
+            if self.plan_file:
+                self.generate_plan_from_file()
+            else:
+                self.generate_plan_from_online_planner()
+        # load from stored values
+        else:
+            self.__dict__ = stored_plg
+
+    def toJson(self):
+        return json.dumps(self.__dict__)
 
     # generate action_list in plan with pddl planner (https://github.com/pucrs-automated-planning/pddl-parser)
     def generate_plan_from_online_planner(self):
@@ -21,9 +37,9 @@ class PlanGenerator:
         self.robot_action_list = copy.deepcopy(action_list)
 
     # generate action_list in plan from file
-    def generate_plan_from_file(self, plan_file):
+    def generate_plan_from_file(self):
         action_list = []
-        f = open(plan_file,'r')
+        f = open(self.plan_file,'r')
         for line in f.readlines():
             line = line.strip()
             action = re.match(r'\((.*)\)',line).group(1)

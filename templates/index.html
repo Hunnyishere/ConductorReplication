@@ -2,7 +2,8 @@
 <html>
 
 <head>
-    <title>My Conductor</title>
+    <title>MyConductor</title>
+    <link rel="icon" href="{{ url_for('static', filename='img/msg.png') }}">
     <!-- bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <!-- Add icon library -->
@@ -21,7 +22,7 @@
         <div class="row">
             <div class="col-md-1"></div>
             <div class="col-md-4  container">
-                <button class="btn btn-primary" id="reset_planning_button">Reset Planning</button>
+                <button class="btn btn-primary" id="reset_planning_button">Reset Plan</button>
                 <button class="btn btn-primary" id="expand_planning_button">Expand Planning</button>
                 <button class="btn btn-primary" id="new_action_button">Add Action</button>
                 <p></p>
@@ -144,16 +145,22 @@
         }
 
     </script>
-    <script src="static/js/loadPlan.js"></script>
-    <script type="text/javascript" src="static/js/removeAction.js"></script>
-    <script type="text/javascript" src="static/js/reorderAction.js"></script>
-    <script type="text/javascript" src="static/js/deletePreEff.js"></script>
-    <script type="text/javascript" src="static/js/displayActionInfo.js"></script>
-    <script type="text/javascript" src="static/js/loadNewActionSelects.js"></script>
-    <script type="text/javascript" src="static/js/loadNewPreSelects.js"></script>
-    <script type="text/javascript" src="static/js/showPreAnimation.js"></script>
-    <script type="text/javascript" src="static/js/undoFunctions.js"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/loadPlan.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/removeAction.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/reorderAction.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/deletePreEff.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/displayActionInfo.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/loadNewActionSelects.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/loadNewPreSelects.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/showPreAnimation.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/undoFunctions.js') }}"></script>
 
 </body>
 
 </html>
+
+<!--TODO: highlight open condition, grey out actions below (not applicable)-->
+<!--TODO: distinguish between preconditions and effects (dividing line, different background colors etc.)-->
+<!--TODO: add step numbers-->
+<!--TODO: save user-generated plan-->
+<!--TODO: show add and remove effects of each action-->

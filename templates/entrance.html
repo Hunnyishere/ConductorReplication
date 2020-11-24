@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>My Conductor</title>
+    <link rel="icon" href="{{ url_for('static', filename='img/msg.png') }}">
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <!-- Add icon library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="static/css/style.css">
+</head>
+
+<body>
+
+    <div class="jumbotron text-center">
+        <h1>Conductor</h1>
+        <p></p>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6  container">
+                <form action = "/generatePlan" method = "POST"
+                      enctype = "multipart/form-data">
+                    <label for="domainFile">Choose your domain file: (domain.pddl)</label>
+                    <input type = "file" name = "domainFile" id="domainFile"/>
+                    <label for="problemFile">Choose your problem file: (problem.pddl)</label>
+                    <input type = "file" name = "problemFile" id="problemFile"/>
+                    <input type = "submit"/>
+                </form>
+            </div>
+            <div class="col-md-4">
+                <form action = "/loadPlan" method = "POST"
+                      enctype = "multipart/form-data">
+                    <label for="domainFile">Choose your domain file: (domain.pddl)</label>
+                    <input type = "file" name = "domainFile2" id="domainFile2"/>
+                    <label for="problemFile">Choose your problem file: (problem.pddl)</label>
+                    <input type = "file" name = "problemFile2" id="problemFile2"/>
+                    <label for="planFile">Choose your plan file: (plan.txt)</label>
+                    <input type = "file" name = "planFile" id="planFile"/>
+                    <input type = "submit"/>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <!--    jquery, bootstrap, icon JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src='https://kit.fontawesome.com/a076d05399.js'></script>
+
+</body>
+</html>

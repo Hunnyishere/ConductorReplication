@@ -255,6 +255,8 @@ class PlanGenerator:
 
     def getDomainObjects(self, parser_objects):
         self.objects = parser_objects
+        print("objects:",self.objects)
+        print("types:",self.types.items())
         for type, subtypes in self.types.items():
             self.objects[type] = set()
             for subtype in subtypes:

@@ -250,6 +250,25 @@ function createAction(act_idx){
     return action_div;
 }
 
+function savePlan(){
+    $("#save_plan_button").click(function(){
+        $.ajax({
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            url: "/save_plan",
+            success: function (saveFile) {
+                // download file
+                var blob = new Blob ([saveFile], {"type": "text/plain"});
+                var a = document.createElement ('a');
+                a.download = 'plan.txt';
+                a.href = window.URL.createObjectURL (blob);
+                a.click ();
+                console.log ('Data saved');
+            }
+        });
+    });
+}
+
 // load initial planning
 function createPlanning() {
     // load position select options for add action panel
@@ -289,6 +308,8 @@ function createPlanning() {
     addAction();
     removeAction();
     reorderActions();
+    // save plan
+    savePlan();
 
     // edit preconditions or effects of action
     deletePreOrEff();

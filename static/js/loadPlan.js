@@ -204,7 +204,8 @@ function createRows(act_idx) {
     let action_div = document.createElement("div");
     action_div.setAttribute("class", "action-row-div");
     action_div.setAttribute("id", "action-row-div-"+act_idx);
-    action_div.innerHTML = action;
+    let act_no = act_idx != 0 && act_idx != action_list.length-1 ? act_idx+'. ' : '';
+    action_div.innerHTML = act_no + action;
     // create delete button for the action
     // initial state and goal state can't be deleted
     if(act_idx != 0 && act_idx != (action_list.length-1)){

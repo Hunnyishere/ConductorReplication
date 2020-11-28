@@ -25,10 +25,10 @@ function displayPreAndEff(){
 
         $("#show-actions").append("<div class='list-group-item list-group action-block' id='action-"+act_idx+"'></div>");
         $(".action-block#action-"+act_idx).append("<h4 class='action-name my-auto' id='action-"+act_idx+"'>"+act_no+action_text+"</h4>");
-        $(".action-block#action-"+act_idx).append("<h4 class='list-group pos-precondition title-text' id='action-"+act_idx+"'>Positive Preconditions</h4>");
-        $(".action-block#action-"+act_idx).append("<h4 class='list-group neg-precondition title-text' id='action-"+act_idx+"'>Negative Preconditions</h4>");
-        $(".action-block#action-"+act_idx).append("<h4 class='list-group pos-effect title-text' id='action-"+act_idx+"'>Positive Effects</h4>");
-        $(".action-block#action-"+act_idx).append("<h4 class='list-group neg-effect title-text' id='action-"+act_idx+"'>Negative Effects</h4>");
+        $(".action-block#action-"+act_idx).append("<h4 class='list-group pos-precondition title-text mt-2 pt-2' id='action-"+act_idx+"'>Positive Preconditions</h4>");
+        $(".action-block#action-"+act_idx).append("<h4 class='list-group neg-precondition title-text pt-2' id='action-"+act_idx+"'>Negative Preconditions</h4>");
+        $(".action-block#action-"+act_idx).append("<h4 class='list-group pos-effect title-text pt-2' id='action-"+act_idx+"'>Positive Effects</h4>");
+        $(".action-block#action-"+act_idx).append("<h4 class='list-group neg-effect title-text mb-2 pt-2' id='action-"+act_idx+"'>Negative Effects</h4>");
 
         // positive preconditions
         let add_button_1 = createAddButton(act_idx, "pos-pre");

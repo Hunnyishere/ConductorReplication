@@ -55,7 +55,7 @@ function createVirtualNewAction(new_action){
 }
 
 function loadNewActionBody(){
-    $("<h3>New Action</h3><div id='create_action_form' class='form-group-lg'></div>").appendTo("#create_action_layout");
+    $("<h3 class='big-title-text'>New Action</h3><div id='create_action_form' class='form-group-lg'></div>").appendTo("#create_action_layout");
     $("<br/><button class='btn btn-primary' id='submit_add_action_button'>Submit</button>").appendTo("#create_action_form");
     let name_label = $("<label for='new-action-name-select' id='new-action-name-label'><h4 class='title-text'>action-name</h4></label>").insertBefore("#submit_add_action_button");
     let name_select = $("<select class='form-control' id='new-action-name-select'></select>").insertBefore("#submit_add_action_button");

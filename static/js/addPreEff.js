@@ -81,7 +81,7 @@ function addPreSetup(target_name, act_idx){
 }
 
 function loadNewPreBody(){
-    $("<h3>New Precondition</h3><div id='create_precondition_form' class='form-group-lg'></div>").appendTo("#create_precondition_layout");
+    $("<h3 class='big-title-text'>New Precondition</h3><div id='create_precondition_form' class='form-group-lg'></div>").appendTo("#create_precondition_layout");
     $("<br/><button class='btn btn-primary' id='submit_add_precondition_button'>Submit</button>").appendTo("#create_precondition_form");
     let name_label = $("<label for='new-precondition-name-select' id='new-precondition-name-label'><h4 class='title-text'>precondition-name</h4></label>").insertBefore("#submit_add_precondition_button");
     let name_select = $("<select id='new-precondition-name-select' class='form-control'></select>").insertBefore("#submit_add_precondition_button");

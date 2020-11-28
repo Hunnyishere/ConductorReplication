@@ -57,7 +57,7 @@ function createVirtualNewAction(new_action){
 function loadNewActionBody(){
     $("<h3>New Action</h3><div id='create_action_form' class='form-group-lg'></div>").appendTo("#create_action_layout");
     $("<br/><button class='btn btn-primary' id='submit_add_action_button'>Submit</button>").appendTo("#create_action_form");
-    let name_label = $("<label for='new-action-name-select' id='new-action-name-label'>action-name</label>").insertBefore("#submit_add_action_button");
+    let name_label = $("<label for='new-action-name-select' id='new-action-name-label'><h4 class='title-text'>action-name</h4></label>").insertBefore("#submit_add_action_button");
     let name_select = $("<select class='form-control' id='new-action-name-select'></select>").insertBefore("#submit_add_action_button");
     for(let act_idx in action_selects){
         let act = action_selects[act_idx];
@@ -78,7 +78,7 @@ function loadNewActionObj(){
     for(let obj_idx=1; obj_idx<Object.keys(action_selects[selected_idx]).length;obj_idx++){
         let obj = action_selects[selected_idx][obj_idx];
         let obj_type = action_params[selected_act][obj];
-        let obj_label = $("<label for='"+obj_type+"'>"+obj+"</label>").insertBefore("#submit_add_action_button");
+        let obj_label = $("<label for='"+obj_type+"'><h4 class='title-text'>"+obj+"</h4></label>").insertBefore("#submit_add_action_button");
         let obj_select = $("<select class='new-action-obj-"+obj_idx+" form-control' id='"+obj_type+"'></select><br/>").insertBefore("#submit_add_action_button");
         for(let obj_name_idx in objects[obj_type]){
             let obj_name = objects[obj_type][obj_name_idx];

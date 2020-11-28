@@ -1,15 +1,34 @@
 // should show up in groups, obj xxx, city xxx, truck xxx, ...
 function displayPreAndEff(){
+    // num of pres to display in 1 line
+    const numDisplay = 3;
+
     $("#show-actions").empty();
     for(let act_idx in action_list){
         let action = action_list[act_idx];
-        //console.log("action=",action);
+        let action_text = action;
+        if(action!="Initial State" && action!="Goal State"){
+            // remove ' [ ]
+            let splits = action.split("'")
+            const regexp = /([a-z0-9\-\_]+)/;
+            let matches = [];
+            for(let sid in splits){
+                let s = splits[sid];
+                let match = s.match(regexp);
+                if(match){
+                    matches.push(match[1]);
+                }
+            }
+            action_text = matches.length!=0 ? matches.join(', ') : '';
+        }
+        let act_no = act_idx != 0 && act_idx != action_list.length-1 ? act_idx+'. ' : '';
+
         $("#show-actions").append("<div class='list-group-item list-group action-block' id='action-"+act_idx+"'></div>");
-        $(".action-block#action-"+act_idx).append("<h4 class='action-name' id='action-"+act_idx+"'>"+action+"</h4>");
-        $(".action-block#action-"+act_idx).append("<p class='list-group pos-precondition' id='action-"+act_idx+"'>Positive Preconditions</p>");
-        $(".action-block#action-"+act_idx).append("<p class='list-group neg-precondition' id='action-"+act_idx+"'>Negative Preconditions</p>");
-        $(".action-block#action-"+act_idx).append("<p class='list-group pos-effect' id='action-"+act_idx+"'>Positive Effects</p>");
-        $(".action-block#action-"+act_idx).append("<p class='list-group neg-effect' id='action-"+act_idx+"'>Negative Effects</p>");
+        $(".action-block#action-"+act_idx).append("<h4 class='action-name' id='action-"+act_idx+"'>"+act_no+action_text+"</h4>");
+        $(".action-block#action-"+act_idx).append("<h4 class='list-group pos-precondition title-text' id='action-"+act_idx+"'>Positive Preconditions</h4>");
+        $(".action-block#action-"+act_idx).append("<h4 class='list-group neg-precondition title-text' id='action-"+act_idx+"'>Negative Preconditions</h4>");
+        $(".action-block#action-"+act_idx).append("<h4 class='list-group pos-effect title-text' id='action-"+act_idx+"'>Positive Effects</h4>");
+        $(".action-block#action-"+act_idx).append("<h4 class='list-group neg-effect title-text' id='action-"+act_idx+"'>Negative Effects</h4>");
 
         // positive preconditions
         let add_button_1 = createAddButton(act_idx, "pos-pre");
@@ -23,16 +42,31 @@ function displayPreAndEff(){
                 pos_pre_dict[pos_pre_op] = [];
             }
             pos_pre_dict[pos_pre_op].push(pos_pre_list.slice(1,));
-            //$(".pos-precondition#action-"+act_idx).append("<div class='list-group-item' id='action-"+act_idx+"-pos-pre-"+pre_idx_in_list+"'>"+precondition_list[pre_idx_in_list]+"</div>");
-            // let delete_button = createDeleteButton(act_idx+'-'+pre_idx_in_list, "pos-pre");
-            // $("#action-"+act_idx+"-pos-pre-"+pre_idx_in_list).append(delete_button);
         }
         let pos_pre_op_idx = 0;
         for(let pre_op in pos_pre_dict){
-            $(".pos-precondition#action-"+act_idx).append("<br/><div class='btn-group mr-2' role='group' aria-label='Second group' id='action-"+act_idx+"-pos-pre-group-"+pos_pre_op_idx+"'></div>");
-            $("#action-"+act_idx+"-pos-pre-group-"+pos_pre_op_idx).prepend("<div>"+pre_op+"</div>");
+            let op_text = pre_op.split("'")[1];
+            // vertical btn group
+            $(".pos-precondition#action-"+act_idx).append("<br/><div class='btn-group-vertical mr-2' role='group' aria-label='Second group' id='action-"+act_idx+"-pos-pre-group-"+pos_pre_op_idx+"'></div>");
+            // first horizontal group
+            let hor_btn_group = "<div class='btn-group mr-2' role='group'></div>";
+            $(hor_btn_group).prepend("<div><h5 class='pre-text'>"+op_text+"</h5></div>");
+
             for(let obj_id in pos_pre_dict[pre_op]){
                 let obj = pos_pre_dict[pre_op][obj_id];
+                // remove ' [ ]
+                let obj_splits = obj.toString().split("'");
+                const regexp = /([a-z0-9\-\_]+)/;
+                let matches = [];
+                for(let sid in obj_splits){
+                    let s = obj_splits[sid];
+                    let match = s.match(regexp);
+                    if(match){
+                        matches.push(match[1]);
+                    }
+                }
+                let obj_text = matches.length!=0 ? matches.join(', ') : '';
+                // find pre_idx
                 let pre_content;
                 if(obj.length!=0){
                     pre_content = [pre_op, obj].join(',');
@@ -41,9 +75,22 @@ function displayPreAndEff(){
                     pre_content = pre_op;
                 }
                 let pre_idx_in_list = precondition_list.indexOf(pre_content);
-                $("#action-"+act_idx+"-pos-pre-group-"+pos_pre_op_idx).append("<button type='button' class='btn btn-warning pos-pre-btn' id='pos-pre-btn-"+act_idx+"-"+pre_idx_in_list+"'>"+obj+"</button>");
+                // horizontal btn group
+                if(obj_id % numDisplay == 0){
+                    hor_btn_group = `<div class='btn-group mr-2' id='pos-pre-group-"+act_idx+"-"+pre_idx_in_list+"-"+obj_id+"' role='group'></div>`;
+                }
+                $(hor_btn_group).append("<button type='button' class='btn btn-warning pos-pre-btn' id='pos-pre-btn-"+act_idx+"-"+pre_idx_in_list+"'>"+obj_text+"</button>");
                 let delete_button = createDeleteButton(act_idx+'-'+pre_idx_in_list, "pos-pre");
-                $("#action-"+act_idx+"-pos-pre-group-"+pos_pre_op_idx).append(delete_button);
+                $(hor_btn_group).append(delete_button);
+                if((obj_id+1) % numDisplay == 0){
+                    // append to vertical-group only after adding all btns
+                    $("#action-"+act_idx+"-pos-pre-group-"+pos_pre_op_idx).append(hor_btn_group);
+                }
+            }
+            // TODO: why hor_btn_group not append anything??
+            if(pos_pre_dict[pre_op].length % numDisplay != 0){
+                // add last one
+                $("#action-"+act_idx+"-pos-pre-group-"+pos_pre_op_idx).append(hor_btn_group);
             }
             pos_pre_op_idx ++;
         }
@@ -63,10 +110,24 @@ function displayPreAndEff(){
         }
         let neg_pre_op_idx = 0;
         for(let pre_op in neg_pre_dict){
+            let op_text = pre_op.split("'")[1];
             $(".neg-precondition#action-"+act_idx).append("<br/><div class='btn-group mr-2' role='group' aria-label='Second group' id='action-"+act_idx+"-neg-pre-group-"+neg_pre_op_idx+"'></div>");
-            $("#action-"+act_idx+"-neg-pre-group-"+neg_pre_op_idx).prepend("<div>"+pre_op+"</div>");
+            $("#action-"+act_idx+"-neg-pre-group-"+neg_pre_op_idx).prepend("<div><h5 class='pre-text'>"+op_text+"</h5></div>");
             for(let obj_id in neg_pre_dict[pre_op]){
                 let obj = neg_pre_dict[pre_op][obj_id];
+                // remove ' [ ]
+                let obj_splits = obj.toString().split("'");
+                const regexp = /([a-z0-9\-\_]+)/;
+                let matches = [];
+                for(let sid in obj_splits){
+                    let s = obj_splits[sid];
+                    let match = s.match(regexp);
+                    if(match){
+                        matches.push(match[1]);
+                    }
+                }
+                let obj_text = matches.length!=0 ? matches.join(', ') : '';
+                // find pre_idx
                 let pre_content;
                 if(obj.length!=0){
                     pre_content = [pre_op, obj].join(',');
@@ -75,7 +136,7 @@ function displayPreAndEff(){
                     pre_content = pre_op;
                 }
                 let pre_idx_in_list = precondition_list.indexOf(pre_content);
-                $("#action-"+act_idx+"-neg-pre-group-"+neg_pre_op_idx).append("<button type='button' class='btn btn-warning neg-pre-btn' id='neg-pre-btn-"+act_idx+"-"+pre_idx_in_list+"'>"+obj+"</button>");
+                $("#action-"+act_idx+"-neg-pre-group-"+neg_pre_op_idx).append("<button type='button' class='btn btn-warning neg-pre-btn' id='neg-pre-btn-"+act_idx+"-"+pre_idx_in_list+"'>"+obj_text+"</button>");
                 let delete_button = createDeleteButton(act_idx+'-'+pre_idx_in_list, "neg-pre");
                 $("#action-"+act_idx+"-neg-pre-group-"+neg_pre_op_idx).append(delete_button);
             }
@@ -97,10 +158,24 @@ function displayPreAndEff(){
         }
         let pos_eff_op_idx = 0;
         for(let eff_op in pos_eff_dict){
+            let op_text = eff_op.split("'")[1];
             $(".pos-effect#action-"+act_idx).append("<br/><div class='btn-group mr-2' role='group' aria-label='Second group' id='action-"+act_idx+"-pos-eff-group-"+pos_eff_op_idx+"'></div>");
-            $("#action-"+act_idx+"-pos-eff-group-"+pos_eff_op_idx).prepend("<div>"+eff_op+"</div>");
+            $("#action-"+act_idx+"-pos-eff-group-"+pos_eff_op_idx).prepend("<div><h5 class='pre-text'>"+op_text+"</h5></div>");
             for(let obj_id in pos_eff_dict[eff_op]){
                 let obj = pos_eff_dict[eff_op][obj_id];
+                // remove ' [ ]
+                let obj_splits = obj.toString().split("'");
+                const regexp = /([a-z0-9\-\_]+)/;
+                let matches = [];
+                for(let sid in obj_splits){
+                    let s = obj_splits[sid];
+                    let match = s.match(regexp);
+                    if(match){
+                        matches.push(match[1]);
+                    }
+                }
+                let obj_text = matches.length!=0 ? matches.join(', ') : '';
+                // find eff_idx
                 let eff_content;
                 if(obj.length!=0){
                     eff_content = [eff_op, obj].join(',');
@@ -109,7 +184,7 @@ function displayPreAndEff(){
                     eff_content = eff_op;
                 }
                 let eff_idx_in_list = effect_list.indexOf(eff_content);
-                $("#action-"+act_idx+"-pos-eff-group-"+pos_eff_op_idx).append("<button type='button' class='btn btn-warning pos-eff-btn' id='pos-eff-btn-"+act_idx+"-"+eff_idx_in_list+"'>"+obj+"</button>");
+                $("#action-"+act_idx+"-pos-eff-group-"+pos_eff_op_idx).append("<button type='button' class='btn btn-warning pos-eff-btn' id='pos-eff-btn-"+act_idx+"-"+eff_idx_in_list+"'>"+obj_text+"</button>");
                 let delete_button = createDeleteButton(act_idx+'-'+eff_idx_in_list, "pos-eff");
                 $("#action-"+act_idx+"-pos-eff-group-"+pos_eff_op_idx).append(delete_button);
             }
@@ -131,10 +206,24 @@ function displayPreAndEff(){
         }
         let neg_eff_op_idx = 0;
         for(let eff_op in neg_eff_dict){
+            let op_text = eff_op.split("'")[1];
             $(".neg-effect#action-"+act_idx).append("<br/><div class='btn-group mr-2' role='group' aria-label='Second group' id='action-"+act_idx+"-neg-eff-group-"+neg_eff_op_idx+"'></div>");
-            $("#action-"+act_idx+"-neg-eff-group-"+neg_eff_op_idx).prepend("<div>"+eff_op+"</div>");
+            $("#action-"+act_idx+"-neg-eff-group-"+neg_eff_op_idx).prepend("<div><h5 class='pre-text'>"+op_text+"</h5></div>");
             for(let obj_id in neg_eff_dict[eff_op]){
                 let obj = neg_eff_dict[eff_op][obj_id];
+                // remove ' [ ]
+                let obj_splits = obj.toString().split("'");
+                const regexp = /([a-z0-9\-\_]+)/;
+                let matches = [];
+                for(let sid in obj_splits){
+                    let s = obj_splits[sid];
+                    let match = s.match(regexp);
+                    if(match){
+                        matches.push(match[1]);
+                    }
+                }
+                let obj_text = matches.length!=0 ? matches.join(', ') : '';
+                // find eff_idx
                 let eff_content;
                 if(obj.length!=0){
                     eff_content = [eff_op, obj].join(',');
@@ -143,7 +232,7 @@ function displayPreAndEff(){
                     eff_content = eff_op;
                 }
                 let eff_idx_in_list = effect_list.indexOf(eff_content);
-                $("#action-"+act_idx+"-neg-eff-group-"+neg_eff_op_idx).append("<button type='button' class='btn btn-warning neg-eff-btn' id='neg-eff-btn-"+act_idx+"-"+eff_idx_in_list+"'>"+obj+"</button>");
+                $("#action-"+act_idx+"-neg-eff-group-"+neg_eff_op_idx).append("<button type='button' class='btn btn-warning neg-eff-btn' id='neg-eff-btn-"+act_idx+"-"+eff_idx_in_list+"'>"+obj_text+"</button>");
                 let delete_button = createDeleteButton(act_idx+'-'+eff_idx_in_list, "neg-eff");
                 $("#action-"+act_idx+"-neg-eff-group-"+neg_eff_op_idx).append(delete_button);
             }

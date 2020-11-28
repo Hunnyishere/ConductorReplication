@@ -173,7 +173,7 @@ function createFullPathLinkAndCap(act_idx, pre_idx){
 
 function createAddButton(target_identifier, target){
     let add_button = document.createElement("button");
-    add_button.setAttribute("class", "btn "+target+"_add_button btn-secondary");
+    add_button.setAttribute("class", "btn "+target+"_add_button btn-success");
     add_button.setAttribute("id", target_identifier);
     let add_icon = document.createElement("i");
     add_icon.setAttribute("class", "fa fa-plus-square text-light");
@@ -195,6 +195,21 @@ function createDeleteButton(target_identifier, target) {
 
 function createRows(act_idx) {
     let action = action_list[act_idx];
+    let action_text = action;
+    if(action!="Initial State" && action!="Goal State") {
+        // remove ' [ ]
+        let splits = action.toString().split("'");
+        const regexp = /([a-z0-9\-\_]+)/;
+        let matches = [];
+        for (let sid in splits) {
+            let s = splits[sid];
+            let match = s.match(regexp);
+            if (match) {
+                matches.push(match[1]);
+            }
+        }
+        action_text = matches.length != 0 ? matches.join(', ') : '';
+    }
 
     // action rows
     let row_action_div = document.createElement("div");
@@ -205,7 +220,7 @@ function createRows(act_idx) {
     action_div.setAttribute("class", "action-row-div");
     action_div.setAttribute("id", "action-row-div-"+act_idx);
     let act_no = act_idx != 0 && act_idx != action_list.length-1 ? act_idx+'. ' : '';
-    action_div.innerHTML = act_no + action;
+    action_div.innerHTML = "<h4 class='action-text ml-3'>" + act_no + action_text + "</h4>";
     // create delete button for the action
     // initial state and goal state can't be deleted
     if(act_idx != 0 && act_idx != (action_list.length-1)){

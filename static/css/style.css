@@ -1,13 +1,24 @@
 div.action-row-div, div.new-action-div{
     display: block;
-    width: 625px;
+    width: 700px;
     height: 50px;
     padding: 8px;
     border: 1px solid blue;    
     background-color: white;
-    text-align: center;
+    text-align: left;
     vertical-align: middle;
     position:relative;
+}
+
+.action-block{
+    vertical-align: middle;
+}
+
+.action-text, .action-name, .pre-text, .title-text{
+    font-family: "Times New Roman", Times, sans-serif;
+}
+.pre-text{
+    display: inline-block;
 }
 
 button.action_delete_button{

@@ -14,7 +14,7 @@
 <body>
 
     <nav class="navbar bg-info fixed-top">
-        <h1><i class="fa fa-tasks text-light"><span class="display-4 text-light">&nbsp;Conductor</span></i></h1>
+        <h1><a href="/"><i class="fa fa-tasks text-light"><span class="display-4 text-light">&nbsp;MyConductor</span></i></a></h1>
     </nav>
     <div class="jumbotron text-center bg-info mt-2 pb-3 mb-5">
         <h1 class="display-3 text-light">Explore your plan</h1>
@@ -24,16 +24,16 @@
         <div class="row">
             <div class="col-1"></div>
             <div class="col-4">
-                <div class="btn-group btn-group-lg mb-5">
+                <div class="btn-group btn-group-lg mb-5" role="group">
                     <button class="btn btn-dark" id="reset_planning_button">Reset Plan</button>
-                    <button class="btn btn-success" id="expand_planning_button">Expand Planning</button>
-                    <button class="btn btn-warning" id="new_action_button">Add Action</button>
+                    <button class="btn btn-success" id="new_action_button">Add Action</button>
+                    <button class="btn btn-warning" id="expand_planning_button">Expand Planning</button>
                     <button class="btn btn-secondary" id="save_plan_button">Save Plan</button>
                 </div>
                 <div id="planning"></div>
             </div>
             <div class="col-4">
-                <div class="btn-group btn-group-lg mb-5">
+                <div class="btn-group btn-group-lg mb-5" role="group">
                     <button class="btn btn-warning" id="show_all_button">Show All</button>
                     <button class="btn btn-secondary" id="hide_all_button">Hide All</button>
                 </div>

@@ -54,6 +54,7 @@ function clickShowPathOnMiddle(){
 function createPath(pre_idx){
     for(let act_idx in action_list){
         let svg = createFullPathLinkAndCap(act_idx, pre_idx);
+        //console.log(svg);
         $(svg).addClass("temp-svg");
         $(svg).insertBefore("#action-row-"+act_idx);
         $(svg).hover(function(){

@@ -68,8 +68,17 @@ function createPath(pre_idx){
 }
 
 function openConditionAnimation(){
+    let act_start_idx = action_list.length;  // gray out start action
+
     // miss positive preconditions
     let miss_pos_pres = document.getElementsByClassName("miss-pos-pre-link");
+    if(miss_pos_pres.length!=0){
+        let pos_act_start_idx;
+        [pos_act_start_idx, ] = miss_pos_pres[0].parentNode.id.split('-');
+        if(pos_act_start_idx < act_start_idx){
+            act_start_idx = pos_act_start_idx;
+        }
+    }
     for(let i=0; i<miss_pos_pres.length; i++){
         miss_pos_pres[i].addEventListener("animationstart", function(){
             this.setAttribute("visibility","visible");
@@ -82,6 +91,13 @@ function openConditionAnimation(){
 
     // miss negative preconditions
     let miss_neg_pres = document.getElementsByClassName("miss-neg-pre-link");
+    if(miss_neg_pres.length!=0){
+        let neg_act_start_idx;
+        [neg_act_start_idx, ] = miss_neg_pres[0].parentNode.id.split('-');
+        if(neg_act_start_idx < act_start_idx){
+            act_start_idx = neg_act_start_idx;
+        }
+    }
     for(let i=0; i<miss_neg_pres.length; i++){
         miss_neg_pres[i].addEventListener("animationstart", function(e){
             missNegPreAniStart(this);
@@ -89,6 +105,11 @@ function openConditionAnimation(){
         miss_neg_pres[i].addEventListener("animationend", function(e){
             missNegPreAniEnd(this);
         });
+    }
+
+    // gray out invalid actions (from first action missing precondition (positive/negative))
+    for(let act_idx = act_start_idx; act_idx < action_list.length; act_idx++){
+        $("#action-row-div-"+act_idx).addClass("bg-secondary");
     }
 }
 

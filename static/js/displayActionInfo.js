@@ -72,7 +72,7 @@ function displayPreAndEff(){
                     pre_content = pre_op;
                 }
                 let pre_idx_in_list = precondition_list.indexOf(pre_content);
-                $("#action-"+act_idx+"-pos-pre-group-"+pos_pre_op_idx).append("<button type='button' class='btn btn-warning pos-pre-btn' id='pos-pre-btn-"+act_idx+"-"+pre_idx_in_list+"'>"+obj_text+"</button>");
+                $("#action-"+act_idx+"-pos-pre-group-"+pos_pre_op_idx).append("<button type='button' class='btn btn-warning pos-pre-btn' id='pos-pre-btn-"+act_idx+"-"+pre_idx_in_list+"'><h5>"+obj_text+"</h5></button>");
                 let delete_button = createDeleteButton(act_idx+'-'+pre_idx_in_list, "pos-pre");
                 $("#action-"+act_idx+"-pos-pre-group-"+pos_pre_op_idx).append(delete_button);
             }
@@ -120,7 +120,7 @@ function displayPreAndEff(){
                     pre_content = pre_op;
                 }
                 let pre_idx_in_list = precondition_list.indexOf(pre_content);
-                $("#action-"+act_idx+"-neg-pre-group-"+neg_pre_op_idx).append("<button type='button' class='btn btn-warning neg-pre-btn' id='neg-pre-btn-"+act_idx+"-"+pre_idx_in_list+"'>"+obj_text+"</button>");
+                $("#action-"+act_idx+"-neg-pre-group-"+neg_pre_op_idx).append("<button type='button' class='btn btn-warning neg-pre-btn' id='neg-pre-btn-"+act_idx+"-"+pre_idx_in_list+"'><h5>"+obj_text+"</h5></button>");
                 let delete_button = createDeleteButton(act_idx+'-'+pre_idx_in_list, "neg-pre");
                 $("#action-"+act_idx+"-neg-pre-group-"+neg_pre_op_idx).append(delete_button);
             }
@@ -168,7 +168,7 @@ function displayPreAndEff(){
                     eff_content = eff_op;
                 }
                 let eff_idx_in_list = effect_list.indexOf(eff_content);
-                $("#action-"+act_idx+"-pos-eff-group-"+pos_eff_op_idx).append("<button type='button' class='btn btn-warning pos-eff-btn' id='pos-eff-btn-"+act_idx+"-"+eff_idx_in_list+"'>"+obj_text+"</button>");
+                $("#action-"+act_idx+"-pos-eff-group-"+pos_eff_op_idx).append("<button type='button' class='btn btn-warning pos-eff-btn' id='pos-eff-btn-"+act_idx+"-"+eff_idx_in_list+"'><h5>"+obj_text+"</h5></button>");
                 let delete_button = createDeleteButton(act_idx+'-'+eff_idx_in_list, "pos-eff");
                 $("#action-"+act_idx+"-pos-eff-group-"+pos_eff_op_idx).append(delete_button);
             }
@@ -216,7 +216,7 @@ function displayPreAndEff(){
                     eff_content = eff_op;
                 }
                 let eff_idx_in_list = effect_list.indexOf(eff_content);
-                $("#action-"+act_idx+"-neg-eff-group-"+neg_eff_op_idx).append("<button type='button' class='btn btn-warning neg-eff-btn' id='neg-eff-btn-"+act_idx+"-"+eff_idx_in_list+"'>"+obj_text+"</button>");
+                $("#action-"+act_idx+"-neg-eff-group-"+neg_eff_op_idx).append("<button type='button' class='btn btn-warning neg-eff-btn' id='neg-eff-btn-"+act_idx+"-"+eff_idx_in_list+"'><h5>"+obj_text+"</h5></button>");
                 let delete_button = createDeleteButton(act_idx+'-'+eff_idx_in_list, "neg-eff");
                 $("#action-"+act_idx+"-neg-eff-group-"+neg_eff_op_idx).append(delete_button);
             }

@@ -32,19 +32,19 @@ h4.pos-precondition, h4.neg-precondition, h4.pos-effect, h4.neg-effect{
 }
 
 h4.pos-precondition{
-    background-color: rgba(221, 193, 156, 0.2);
+    background-color: rgba(221, 193, 156, 0.3);
 }
 
 h4.neg-precondition{
-    background-color: rgba(183, 215, 215, 0.45);
+    background-color: rgba(183, 215, 215, 0.55);
 }
 
 h4.pos-effect{
-    background-color: rgba(250, 194, 178, 0.2);
+    background-color: rgba(250, 194, 178, 0.4);
 }
 
 h4.neg-effect{
-    background-color: rgba(181, 196, 177, 0.35);
+    background-color: rgba(181, 196, 177, 0.45);
 }
 
 button.action_delete_button{

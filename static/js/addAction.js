@@ -78,7 +78,7 @@ function loadNewActionObj(){
     for(let obj_idx=1; obj_idx<Object.keys(action_selects[selected_idx]).length;obj_idx++){
         let obj = action_selects[selected_idx][obj_idx];
         let obj_type = action_params[selected_act][obj];
-        let obj_label = $("<label for='"+obj_type+"'><h4 class='title-text'>"+obj+"</h4></label>").insertBefore("#submit_add_action_button");
+        let obj_label = $("<label for='"+obj_type+"'><h4 class='title-text'>"+obj_type+' - '+obj+"</h4></label>").insertBefore("#submit_add_action_button");
         let obj_select = $("<select class='new-action-obj-"+obj_idx+" form-control' id='"+obj_type+"'></select><br/>").insertBefore("#submit_add_action_button");
         for(let obj_name_idx in objects[obj_type]){
             let obj_name = objects[obj_type][obj_name_idx];

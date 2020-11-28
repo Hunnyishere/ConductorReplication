@@ -104,7 +104,7 @@ function loadNewPreObj(){
     for(let obj_idx=1; obj_idx<Object.keys(pre_selects[selected_idx]).length;obj_idx++){
         let obj = pre_selects[selected_idx][obj_idx];
         let obj_type = pre_params[selected_pre.join(';')][obj];
-        let obj_label = $("<label for='"+obj_type+"'><h4 class='title-text'>"+obj+"</h4></label>").insertBefore("#submit_add_precondition_button");
+        let obj_label = $("<label for='"+obj_type+"'><h4 class='title-text'>"+obj_type+' - '+obj+"</h4></label>").insertBefore("#submit_add_precondition_button");
         let obj_select = $("<select class='new-precondition-obj-"+obj_idx+" form-control' id='"+obj_type+"'></select><br/>").insertBefore("#submit_add_precondition_button");
         for(let obj_name_idx in objects[obj_type]){
             let obj_name = objects[obj_type][obj_name_idx];

@@ -5,52 +5,59 @@
     <title>My Conductor</title>
     <link rel="icon" href="{{ url_for('static', filename='img/msg.png') }}">
     <!-- bootstrap -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <!-- Add icon library -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="static/css/style.css">
 </head>
 
 <body>
-
-    <div class="jumbotron text-center">
-        <h1>Conductor</h1>
-        <p></p>
+    <nav class="navbar bg-info fixed-top">
+        <h1><i class="fa fa-tasks text-light"><span class="display-4 text-light">&nbsp;Conductor</span></i></h1>
+    </nav>
+    <div class="jumbotron text-center bg-info mt-2 pb-3 mb-5">
+        <h1 class="display-3 text-light">Select your plan</h1>
     </div>
 
+    <ul class="nav nav-tabs justify-content-center mb-5">
+        <li class="nav-item">
+            <a class="nav-link active" id="generatePlanBtn" href="#"><h4>Generate Plan from online planner</h4></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="loadPlanBtn" href="#"><h4>Load Plan from file</h4></a>
+        </li>
+    </ul>
+
     <div class="container">
-        <div class="row">
-            <div class="col-md-6  container">
-                <form action = "/generatePlan" method = "POST"
+        <div class="row align-items-center">
+            <div class="col-4"></div>
+            <div class="col-5 mb-5" id="formArea">
+                <form id="generatePlanForm" action = "/generatePlan" method = "POST"
                       enctype = "multipart/form-data">
-                    <label for="domainFile">Choose your domain file: (domain.pddl)</label>
-                    <input type = "file" name = "domainFile" id="domainFile"/>
-                    <label for="problemFile">Choose your problem file: (problem.pddl)</label>
-                    <input type = "file" name = "problemFile" id="problemFile"/>
-                    <input type = "submit"/>
-                </form>
-            </div>
-            <div class="col-md-4">
-                <form action = "/loadPlan" method = "POST"
-                      enctype = "multipart/form-data">
-                    <label for="domainFile">Choose your domain file: (domain.pddl)</label>
-                    <input type = "file" name = "domainFile2" id="domainFile2"/>
-                    <label for="problemFile">Choose your problem file: (problem.pddl)</label>
-                    <input type = "file" name = "problemFile2" id="problemFile2"/>
-                    <label for="planFile">Choose your plan file: (plan.txt)</label>
-                    <input type = "file" name = "planFile" id="planFile"/>
-                    <input type = "submit"/>
+                    <div class="form-group">
+                        <label for="domainFile"><h5>Choose your domain file: (domain.pddl)</h5></label>
+                        <input type = "file" class = "form-control-lg" name = "domainFile" id="domainFile"/>
+                    </div>
+                    <div class="form-group mb-4">
+                        <label for="problemFile"><h5>Choose your problem file: (problem.pddl)</h5></label>
+                        <input type = "file" class = "form-control-lg" name = "problemFile" id="problemFile"/>
+                    </div>
+                    <input type = "submit" class="btn btn-primary btn-lg btn-block"/>
                 </form>
             </div>
         </div>
     </div>
 
+    <footer class="jumbotron bg-light text-center">
+        <p class="lead">Ruoyao Yang, 2020/11</p>
+    </footer>
 
     <!--    jquery, bootstrap, icon JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script type="text/javascript" src='https://kit.fontawesome.com/a076d05399.js'></script>
+    <script type="text/javascript" src="static/js/switchTab.js"></script>
 
 </body>
 </html>

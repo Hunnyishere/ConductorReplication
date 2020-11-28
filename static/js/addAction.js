@@ -27,7 +27,7 @@ function addActionSetup(){
 
 function createVirtualNewAction(new_action){
     let action_str = new_action.join(', ');
-    $("<div class='new-action-sortable'><div class='new-action-div'>"+action_str+"</div></div>").appendTo("#new_action_layout");
+    $("<div class='new-action-sortable'><div class='new-action-div'><h4 class='action-text ml-3'>"+action_str+"</h4></div></div>").appendTo("#new_action_layout");
     $(".new-action-sortable").sortable({
         connectWith: "#planning",
         stop: function(event, div){

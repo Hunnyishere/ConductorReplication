@@ -219,14 +219,17 @@ function createRows(act_idx) {
     let action_div = document.createElement("div");
     action_div.setAttribute("class", "action-row-div");
     action_div.setAttribute("id", "action-row-div-"+act_idx);
+    let text_node = document.createElement("h4");
+    text_node.setAttribute("class", "action-text ml-3");
     let act_no = act_idx != 0 && act_idx != action_list.length-1 ? act_idx+'. ' : '';
-    action_div.innerHTML = "<h4 class='action-text ml-3'>" + act_no + action_text + "</h4>";
+    text_node.innerHTML = `${act_no}${action_text}`;
     // create delete button for the action
     // initial state and goal state can't be deleted
     if(act_idx != 0 && act_idx != (action_list.length-1)){
         let delete_button = createDeleteButton(act_idx, "action");
-        action_div.appendChild(delete_button);
+        text_node.appendChild(delete_button);
     }
+    action_div.appendChild(text_node);
     // add to row
     row_action_div.appendChild(action_div);
 

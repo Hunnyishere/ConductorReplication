@@ -2,7 +2,7 @@ function expandPlanning(){
     $("#expand_planning_button").click(function(){
         $(".temp-svg").remove();
         $(".link-row").show();
-        $(".pos-pre-btn, .neg-pre-btn, .pos-eff-btn, neg-eff-btn").removeClass("btn-primary");
+        $(".pos-pre-btn, .neg-pre-btn, .pos-eff-btn, neg-eff-btn").removeClass("btn-danger");
         $(".action-block").children(".list-group").hide();
     });
 }

@@ -2,8 +2,9 @@ function addPreOrEff(){
     $(".pos-pre_add_button").each(function(){
         $(this).click(function(){
             $("#create_precondition_layout").empty();
-            $(".pos-pre_add_button, .neg-pre_add_button, .pos-eff_add_button, .neg-eff_add_button").removeClass("btn-primary");
-            $(this).addClass("btn-primary");
+            $(".pos-pre-btn, .neg-pre-btn, .pos-eff-btn, .neg-eff-btn").removeClass("btn-danger");
+            $(".pos-pre_add_button, .neg-pre_add_button, .pos-eff_add_button, .neg-eff_add_button").removeClass("btn-danger");
+            $(this).addClass("btn-danger");
             let act_idx = this.id;
             addPreSetup("pos-pre",act_idx);
         });
@@ -12,8 +13,9 @@ function addPreOrEff(){
     $(".neg-pre_add_button").each(function(){
         $(this).click(function(){
             $("#create_precondition_layout").empty();
-            $(".pos-pre_add_button, .neg-pre_add_button, .pos-eff_add_button, .neg-eff_add_button").removeClass("btn-primary");
-            $(this).addClass("btn-primary");
+            $(".pos-pre-btn, .neg-pre-btn, .pos-eff-btn, .neg-eff-btn").removeClass("btn-danger");
+            $(".pos-pre_add_button, .neg-pre_add_button, .pos-eff_add_button, .neg-eff_add_button").removeClass("btn-danger");
+            $(this).addClass("btn-danger");
             let act_idx = this.id;
             addPreSetup("neg-pre",act_idx);
         });
@@ -22,8 +24,9 @@ function addPreOrEff(){
     $(".pos-eff_add_button").each(function(){
         $(this).click(function(){
             $("#create_precondition_layout").empty();
-            $(".pos-pre_add_button, .neg-pre_add_button, .pos-eff_add_button, .neg-eff_add_button").removeClass("btn-primary");
-            $(this).addClass("btn-primary");
+            $(".pos-pre-btn, .neg-pre-btn, .pos-eff-btn, .neg-eff-btn").removeClass("btn-danger");
+            $(".pos-pre_add_button, .neg-pre_add_button, .pos-eff_add_button, .neg-eff_add_button").removeClass("btn-danger");
+            $(this).addClass("btn-danger");
             let act_idx = this.id;
             addPreSetup("pos-eff",act_idx);
         });
@@ -32,8 +35,9 @@ function addPreOrEff(){
     $(".neg-eff_add_button").each(function(){
         $(this).click(function(){
             $("#create_precondition_layout").empty();
-            $(".pos-pre_add_button, .neg-pre_add_button, .pos-eff_add_button, .neg-eff_add_button").removeClass("btn-primary");
-            $(this).addClass("btn-primary");
+            $(".pos-pre-btn, .neg-pre-btn, .pos-eff-btn, .neg-eff-btn").removeClass("btn-danger");
+            $(".pos-pre_add_button, .neg-pre_add_button, .pos-eff_add_button, .neg-eff_add_button").removeClass("btn-danger");
+            $(this).addClass("btn-danger");
             let act_idx = this.id;
             addPreSetup("neg-eff",act_idx);
         });
@@ -69,7 +73,7 @@ function addPreSetup(target_name, act_idx){
                 createPlanning();
                 // clear add precondition layout
                 $("#create_precondition_layout").empty();
-                $(".pos-pre_add_button, .neg-pre_add_button, .pos-eff_add_button, .neg-eff_add_button").removeClass("btn-primary");
+                $(".pos-pre_add_button, .neg-pre_add_button, .pos-eff_add_button, .neg-eff_add_button").removeClass("btn-danger");
             },
             dataType: "json"
         });

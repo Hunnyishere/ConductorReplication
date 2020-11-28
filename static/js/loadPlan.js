@@ -173,22 +173,22 @@ function createFullPathLinkAndCap(act_idx, pre_idx){
 
 function createAddButton(target_identifier, target){
     let add_button = document.createElement("button");
-    add_button.setAttribute("class", "btn "+target+"_add_button");
+    add_button.setAttribute("class", "btn "+target+"_add_button btn-secondary");
     add_button.setAttribute("id", target_identifier);
     let add_icon = document.createElement("i");
-    add_icon.setAttribute("class", "fa fa-plus-square");
+    add_icon.setAttribute("class", "fa fa-plus-square text-light");
     add_button.appendChild(add_icon);
     return add_button;
 }
 
 function createDeleteButton(target_identifier, target) {
     let delete_button = document.createElement("button");
-    delete_button.setAttribute("class", "btn "+target+"_delete_button");
+    delete_button.setAttribute("class", "btn "+target+"_delete_button btn-secondary mr-3");
     delete_button.setAttribute("id", target_identifier);
     delete_button.setAttribute("padding", "0px 0px");
     delete_button.setAttribute("border", "none");
     let delete_icon = document.createElement("i");
-    delete_icon.setAttribute("class", "fa fa-trash");
+    delete_icon.setAttribute("class", "fa fa-trash text-light");
     delete_button.appendChild(delete_icon);
     return delete_button;
 }

@@ -5,7 +5,7 @@
     <title>MyConductor</title>
     <link rel="icon" href="{{ url_for('static', filename='img/msg.png') }}">
     <!-- bootstrap -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <!-- Add icon library -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="static/css/style.css">
@@ -13,35 +13,38 @@
 
 <body>
 
-    <div class="jumbotron text-center">
-        <h1>Conductor</h1>
-        <p></p>
+    <nav class="navbar bg-info fixed-top">
+        <h1><i class="fa fa-tasks text-light"><span class="display-4 text-light">&nbsp;Conductor</span></i></h1>
+    </nav>
+    <div class="jumbotron text-center bg-info mt-2 pb-3 mb-5">
+        <h1 class="display-3 text-light">Explore your plan</h1>
     </div>
 
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-1"></div>
-            <div class="col-md-4  container">
-                <button class="btn btn-primary" id="reset_planning_button">Reset Plan</button>
-                <button class="btn btn-primary" id="expand_planning_button">Expand Planning</button>
-                <button class="btn btn-primary" id="new_action_button">Add Action</button>
-                <button class="btn btn-primary" id="save_plan_button">Save Plan</button>
-                <p></p>
+            <div class="col-1"></div>
+            <div class="col-4">
+                <div class="btn-group btn-group-lg mb-5">
+                    <button class="btn btn-dark" id="reset_planning_button">Reset Plan</button>
+                    <button class="btn btn-success" id="expand_planning_button">Expand Planning</button>
+                    <button class="btn btn-warning" id="new_action_button">Add Action</button>
+                    <button class="btn btn-secondary" id="save_plan_button">Save Plan</button>
+                </div>
                 <div id="planning"></div>
             </div>
-            <div class="col-md-4">
-                <button class="btn btn-primary" id="show_all_button">Show All</button>
-                <button class="btn btn-primary" id="hide_all_button">Hide All</button>
-                <p></p>
+            <div class="col-4">
+                <div class="btn-group btn-group-lg mb-5">
+                    <button class="btn btn-warning" id="show_all_button">Show All</button>
+                    <button class="btn btn-secondary" id="hide_all_button">Hide All</button>
+                </div>
                 <div id="show-actions" class="list-group">
                 </div>
             </div>
-            <div class="col-md-2">
+            <div class="col-2">
                 <div id="create_action_layout"></div>
                 <div id="new_action_layout"></div>
                 <div id="create_precondition_layout"></div>
             </div>
-            <div class="col-md-1"></div>
         </div>
     </div>
 
@@ -49,7 +52,7 @@
     <!--    jquery, bootstrap, icon JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script type="text/javascript" src='https://kit.fontawesome.com/a076d05399.js'></script>
     <script type="text/javascript" src="static/js/js-colormaps.js"></script>
     <script>

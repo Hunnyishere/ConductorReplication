@@ -173,7 +173,7 @@ function createFullPathLinkAndCap(act_idx, pre_idx){
 
 function createAddButton(target_identifier, target){
     let add_button = document.createElement("button");
-    add_button.setAttribute("class", "btn "+target+"_add_button btn-success");
+    add_button.setAttribute("class", "btn-sm "+target+"_add_button btn-success");
     add_button.setAttribute("id", target_identifier);
     let add_icon = document.createElement("i");
     add_icon.setAttribute("class", "fa fa-plus-square text-light");

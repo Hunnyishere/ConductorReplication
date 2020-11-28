@@ -3,7 +3,7 @@ div.action-row-div, div.new-action-div{
     width: 700px;
     height: 50px;
     padding: 8px;
-    border: 1px solid blue;    
+    border: 1px solid black;
     background-color: white;
     text-align: left;
     vertical-align: middle;
@@ -11,14 +11,19 @@ div.action-row-div, div.new-action-div{
 }
 
 .action-block{
-    vertical-align: middle;
+    border: 1px solid black;
 }
 
 .action-text, .action-name, .pre-text, .title-text{
     font-family: "Times New Roman", Times, sans-serif;
 }
+
 .pre-text{
     display: inline-block;
+}
+
+h4.pos-precondition, h4.neg-precondition, h4.pos-effect, h4.neg-effect{
+    display: block;
 }
 
 button.action_delete_button{

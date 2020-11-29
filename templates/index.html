@@ -58,9 +58,7 @@
                                 </button>
                             </div>
                             <div class="modal-body" id="newActionModalBody"></div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-primary" id="submitNewActionModal">Create</button>
-                            </div>
+                            <div class="modal-footer" id="newActionModalFooter"></div>
                         </div>
                     </div>
                 </div>
@@ -76,7 +74,7 @@
                                 </button>
                             </div>
                             <div class="modal-body" id="newPreconditionModalBody"></div>
-                            <div class="modal-footer">
+                            <div class="modal-footer" id="newPreconditionModalFooter">
                                 <button type="button" class="btn btn-primary" id="submitNewPreconditionModal">Create</button>
                             </div>
                         </div>
@@ -151,6 +149,7 @@
             domain_file = myData["domain_file"];
             problem_file = myData["problem_file"];
             plan_file = myData["plan_file"] ? '<br/>plan: '+myData["plan_file"] : '';
+            $("#fileNames").empty();
             $("#fileNames").append(`domain: ${domain_file}<br/>problem: ${problem_file}${plan_file}`);
         }
 

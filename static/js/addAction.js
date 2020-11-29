@@ -1,6 +1,9 @@
 function addAction(){
     $("#new_action_button").click(function(){
         $('#newActionModal').modal('toggle');
+        $("#newActionModalFooter").empty();
+        $("#newActionModalFooter").append(`<button type="button" class="btn btn-primary" id="submitNewActionModal">Create</button>`)
+        console.log($("#newActionModalFooter"));
         addActionSetup();
     });
 }

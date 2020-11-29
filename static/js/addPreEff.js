@@ -46,6 +46,8 @@ function addPreOrEff(){
 
 function addPreSetup(target_name, act_idx){
     $('#newPreconditionModal').modal('toggle');
+    $("#newPreconditionModalFooter").empty();
+    $("#newPreconditionModalFooter").append(`<button type="button" class="btn btn-primary" id="submitNewPreconditionModal">Create</button>`)
     $("#newPreconditionModalBody").empty();
     loadNewPreBody();
     loadNewPreObj();

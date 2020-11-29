@@ -17,8 +17,6 @@ app.config['PLAN_FILETYPES'] = {'txt'}
 app.config.from_object(__name__)
 Session(app)
 
-# TODO: test more domains
-
 # entrance
 @app.route("/")
 def entrance():

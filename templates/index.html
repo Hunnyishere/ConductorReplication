@@ -16,14 +16,19 @@
     <nav class="navbar bg-info fixed-top">
         <h1><a href="/"><i class="fa fa-tasks text-light"><span class="display-4 text-light">&nbsp;MyConductor</span></i></a></h1>
     </nav>
-    <div class="jumbotron text-center bg-info mt-2 pb-3 mb-5">
+    <div class="jumbotron text-center bg-info mt-2 pb-1 mb-5">
         <h1 class="display-3 text-light">Explore your plan</h1>
+        <div class="card bg-info border-info">
+            <div class="card-body text-light">
+                <h3 id="fileNames"></h3>
+            </div>
+        </div>
     </div>
 
     <div class="container-fluid">
         <div class="row">
             <div class="col-2"></div>
-            <div class="col-4 ml-5">
+            <div class="col-4">
                 <div class="btn-group btn-group-lg mb-5" role="group">
                     <button class="btn btn-dark" id="reset_planning_button">Reset Plan</button>
                     <button class="btn btn-success" id="new_action_button">Add Action</button>
@@ -94,6 +99,9 @@
     <script type="text/javascript" src="static/js/js-colormaps.js"></script>
     <script>
         let myData;
+        let domain_file;
+        let problem_file;
+        let plan_file;
         let action_list;
         let action_dict;
         let precondition_list;
@@ -132,12 +140,21 @@
             pre_params = myData["pre_params"];
             action_selects = myData["action_selects"];
             action_params = myData["action_params"];
+
             // set colors
-            color_idx = 12;
-            color_set = cmap_rainbow(120);
+            color_idx = 3;
+            color_set = cmap_rainbow(35);
+            // color_idx = 12;
+            // color_set = cmap_rainbow(120);
+
+            // display file name
+            domain_file = myData["domain_file"];
+            problem_file = myData["problem_file"];
+            plan_file = myData["plan_file"] ? '<br/>plan: '+myData["plan_file"] : '';
+            $("#fileNames").append(`domain: ${domain_file}<br/>problem: ${problem_file}${plan_file}`);
         }
 
-        // color map
+        // color map, cite from: https://jsfiddle.net/xphsnyew/
         function cmap_rainbow(valcnt, cyclelen = null, s = 100, l = 50, stepsize = 1) {
             if (cyclelen == null)
                 cyclelen = valcnt;

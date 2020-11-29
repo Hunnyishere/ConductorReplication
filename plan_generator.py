@@ -340,6 +340,12 @@ class PlanGenerator:
     def all_in_dict(self):
         # self.data = {}
         # self.data["action_list"] = self.action_list
+        self.data["domain_file"] = self.domain_file.split('/')[-1]
+        self.data["problem_file"] = self.problem_file.split('/')[-1]
+        if self.plan_file:
+            self.data["plan_file"] = self.plan_file.split('/')[-1]
+        else:
+            self.data["plan_file"] = ''
         self.data["precondition_list"] = self.precondition_list
         self.data["effect_list"] = self.effect_list
         self.data["action_dict"] = self.action_dict_id

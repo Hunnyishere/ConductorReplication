@@ -1,7 +1,6 @@
 div.action-row-div, div.new-action-div{
     display: block;
     width: 720px;
-    height: 50px;
     padding: 8px;
     border: 1px solid black;
     background-color: white;

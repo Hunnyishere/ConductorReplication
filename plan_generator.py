@@ -6,8 +6,8 @@ import pddl_parser.PDDL
 
 class PlanGenerator:
     def __init__(self, domain_file=None, problem_file=None, plan_file=None, stored_plg=None):
-        print("domain_file:",domain_file)
-        print("problem_file:",problem_file)
+        # print("domain_file:",domain_file)
+        # print("problem_file:",problem_file)
         # first-time initialization
         if domain_file is not None:
             self.domain_file = domain_file
@@ -148,7 +148,6 @@ class PlanGenerator:
         # intermediate actions
         for action in self.action_list:
             add_effects = self.action_dict[str(action)]["Effect"]["pos"]
-            print(add_effects)
             del_effects = self.action_dict[str(action)]["Effect"]["neg"]
             effect_list.extend([eff for eff in add_effects if eff not in effect_list])
             effect_list.extend([eff for eff in del_effects if eff not in effect_list])
@@ -262,8 +261,8 @@ class PlanGenerator:
 
     def getDomainObjects(self, parser_objects):
         self.objects = parser_objects
-        print("objects:",self.objects)
-        print("types:",self.types.items())
+        # print("objects:",self.objects)
+        # print("types:",self.types.items())
         for type, subtypes in self.types.items():
             self.objects[type] = set()
             for subtype in subtypes:
@@ -284,6 +283,7 @@ class PlanGenerator:
 
     def create_effect_duration(self):
         effect_duration = {}
+        visited_neg_effects = {}
         for i in range(len(self.action_dict_id.keys())):
             action = list(self.action_dict_id.keys())[i]
             for pos_eff_idx in self.action_dict_id[action]["Effect"]["pos"]:
@@ -293,11 +293,17 @@ class PlanGenerator:
                 effect_duration[pos_eff].append([i,-1])
             for neg_eff_idx in self.action_dict_id[action]["Effect"]["neg"]:
                 neg_eff = self.effect_list[neg_eff_idx]
+                if neg_eff not in visited_neg_effects.keys():
+                    visited_neg_effects[neg_eff] = []
                 # if there's no positive effect before this, ignore this negative effect
                 if neg_eff in effect_duration.keys():
-                    effect_duration[neg_eff][-1][1] = i
+                    last_duration = effect_duration[neg_eff][-1]
+                    # avoid overwriting the same duration
+                    if last_duration not in visited_neg_effects[neg_eff]:
+                        effect_duration[neg_eff][-1][1] = i
+                        visited_neg_effects[neg_eff].append(last_duration)
 
-        # print("old effect duration:\n",effect_duration)
+        print("old effect duration:\n",effect_duration)
         # update end of duration to the last action that needs it
         new_effect_duration = {}
         for pre,actions in self.precondition_dict.items():
@@ -311,6 +317,10 @@ class PlanGenerator:
                 continue
             while duration_idx < len(effect_duration[pre]):
                 duration = effect_duration[pre][duration_idx]
+                # if the first action <= first valid effect duration, move on to find next action for this duration
+                if action_idx <= duration[0]:
+                    idx_in_actions += 1
+                    action_idx = actions[idx_in_actions]
                 # find all actions in precondition_dict that fall into this duration
                 while action_idx > duration[0] and (duration[1]==-1 or action_idx <= duration[1]):
                     last_action_idx = action_idx

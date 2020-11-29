@@ -3,7 +3,6 @@ function addAction(){
         $('#newActionModal').modal('toggle');
         $("#newActionModalFooter").empty();
         $("#newActionModalFooter").append(`<button type="button" class="btn btn-primary" id="submitNewActionModal">Create</button>`)
-        console.log($("#newActionModalFooter"));
         addActionSetup();
     });
 }
@@ -37,7 +36,7 @@ function createVirtualNewAction(new_action){
         connectWith: "#planning",
         stop: function(event, div){
             let insert_idx = div.item.index();
-            console.log(insert_idx);
+            //console.log(insert_idx);
             $.ajax({
                 type: "POST",
                 contentType: "application/json; charset=utf-8",

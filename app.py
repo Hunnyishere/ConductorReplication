@@ -206,7 +206,6 @@ def add_pre():
     plg.create_precondition_list(parser)
     plg.create_effect_list(parser)
     plg.update_action_list()
-    print("plg.effect_list:",plg.effect_list)
     plg.create_action_dict_id()
     # other func
     plg.create_precondition_dict()

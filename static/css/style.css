@@ -1,6 +1,6 @@
 div.action-row-div, div.new-action-div{
     display: block;
-    width: 700px;
+    width: 720px;
     height: 50px;
     padding: 8px;
     border: 1px solid black;
@@ -14,8 +14,7 @@ div.action-row-div, div.new-action-div{
     border: 1px solid black;
 }
 
-.big-title-text{
-    font-family: "Times New Roman", Times, sans-serif;
+.modal-title{
     font-weight: bold;
 }
 

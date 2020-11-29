@@ -22,8 +22,8 @@
 
     <div class="container-fluid">
         <div class="row">
-            <div class="col-1"></div>
-            <div class="col-4">
+            <div class="col-2"></div>
+            <div class="col-4 ml-5">
                 <div class="btn-group btn-group-lg mb-5" role="group">
                     <button class="btn btn-dark" id="reset_planning_button">Reset Plan</button>
                     <button class="btn btn-success" id="new_action_button">Add Action</button>
@@ -33,17 +33,50 @@
                 <div id="planning"></div>
             </div>
             <div class="col-4">
-                <div class="btn-group btn-group-lg mb-5" role="group">
-                    <button class="btn btn-warning" id="show_all_button">Show All</button>
-                    <button class="btn btn-secondary" id="hide_all_button">Hide All</button>
-                </div>
-                <div id="show-actions" class="list-group">
-                </div>
-            </div>
-            <div class="col-2">
-                <div id="create_action_layout"></div>
                 <div id="new_action_layout"></div>
-                <div id="create_precondition_layout"></div>
+                <div id="action_detail_area">
+                    <div class="btn-group btn-group-lg mb-5" role="group">
+                        <button class="btn btn-warning" id="show_all_button">Show All</button>
+                        <button class="btn btn-secondary" id="hide_all_button">Hide All</button>
+                    </div>
+                    <div id="show-actions" class="list-group"></div>
+                </div>
+                <!-- create new action-->
+                <div class="modal fade" id="newActionModal" tabindex="-1" role="dialog"
+                     aria-hidden="true">
+                    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Create New Action</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body" id="newActionModalBody"></div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" id="submitNewActionModal">Create</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- create new precondition-->
+                <div class="modal fade" id="newPreconditionModal" tabindex="-1" role="dialog"
+                     aria-hidden="true">
+                    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Create New Precondition</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body" id="newPreconditionModalBody"></div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" id="submitNewPreconditionModal">Create</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

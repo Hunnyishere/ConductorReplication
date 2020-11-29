@@ -131,17 +131,24 @@ class PlanGenerator:
             precondition_list.extend([pre for pre in pos_preconditions if pre not in precondition_list])
             precondition_list.extend([pre for pre in neg_preconditions if pre not in precondition_list])
         # goal state
-        precondition_list.extend([pre for pre in parser.positive_goals if pre not in precondition_list])
-        precondition_list.extend([pre for pre in parser.negative_goals if pre not in precondition_list])
+        precondition_list.extend([pre for pre in self.action_dict["Goal State"]["Precondition"]["pos"] if pre not in precondition_list])
+        precondition_list.extend([pre for pre in self.action_dict["Goal State"]["Precondition"]["neg"] if pre not in precondition_list])
+        # precondition_list.extend([pre for pre in parser.positive_goals if pre not in precondition_list])
+        # precondition_list.extend([pre for pre in parser.negative_goals if pre not in precondition_list])
         self.precondition_list = self.list2str_list(precondition_list)
 
     def create_effect_list(self, parser):
         effect_list = []
         # initial states
-        effect_list.extend(parser.state)
+        effect_list.extend(
+            [eff for eff in self.action_dict["Initial State"]["Effect"]["pos"] if eff not in effect_list])
+        effect_list.extend(
+            [eff for eff in self.action_dict["Initial State"]["Effect"]["neg"] if eff not in effect_list])
+        # effect_list.extend(parser.state)
         # intermediate actions
         for action in self.action_list:
             add_effects = self.action_dict[str(action)]["Effect"]["pos"]
+            print(add_effects)
             del_effects = self.action_dict[str(action)]["Effect"]["neg"]
             effect_list.extend([eff for eff in add_effects if eff not in effect_list])
             effect_list.extend([eff for eff in del_effects if eff not in effect_list])

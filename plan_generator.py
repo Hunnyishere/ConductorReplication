@@ -280,8 +280,11 @@ class PlanGenerator:
                     precondition_dict[pre] = []
                 # multiple steps using the same action, use the first not appeared
                 act_indices = [i for i,act in enumerate(self.data["action_list"]) if act==action]
-                appeared_indices = [idx for i, idx in enumerate(precondition_dict[pre]) if idx == act_indices[0]]
+                appeared_indices = [idx for i, idx in enumerate(precondition_dict[pre]) if idx in act_indices]
                 precondition_dict[pre].append(act_indices[len(appeared_indices)])
+                # print("pre, action:",pre,action)
+                # print("act_indices",act_indices)
+                # print("appeared_indices:",appeared_indices)
         self.precondition_dict = precondition_dict
 
     def create_effect_duration(self):

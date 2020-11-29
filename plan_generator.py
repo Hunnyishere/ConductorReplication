@@ -278,14 +278,20 @@ class PlanGenerator:
                 pre = self.precondition_list[pre_idx]
                 if pre not in precondition_dict.keys():
                     precondition_dict[pre] = []
-                precondition_dict[pre].append(self.data["action_list"].index(action))
+                # multiple steps using the same action, use the first not appeared
+                act_indices = [i for i,act in enumerate(self.data["action_list"]) if act==action]
+                appeared_indices = [idx for i, idx in enumerate(precondition_dict[pre]) if idx == act_indices[0]]
+                precondition_dict[pre].append(act_indices[len(appeared_indices)])
         self.precondition_dict = precondition_dict
 
     def create_effect_duration(self):
         effect_duration = {}
         visited_neg_effects = {}
-        for i in range(len(self.action_dict_id.keys())):
-            action = list(self.action_dict_id.keys())[i]
+        temp_action_list = copy.deepcopy(self.action_list)
+        temp_action_list.insert(0,"Initial State")
+        temp_action_list.append("Goal State")
+        for i in range(len(temp_action_list)):
+            action = str(temp_action_list[i])
             for pos_eff_idx in self.action_dict_id[action]["Effect"]["pos"]:
                 pos_eff = self.effect_list[pos_eff_idx]
                 if pos_eff not in effect_duration.keys():
@@ -306,7 +312,9 @@ class PlanGenerator:
         print("old effect duration:\n",effect_duration)
         # update end of duration to the last action that needs it
         new_effect_duration = {}
+        print("precondition_dict:",self.precondition_dict)
         for pre,actions in self.precondition_dict.items():
+            # print("pre, actions:", pre, actions)
             new_effect_duration[pre] = []
             idx_in_actions = 0
             action_idx = actions[idx_in_actions]
@@ -317,9 +325,13 @@ class PlanGenerator:
                 continue
             while duration_idx < len(effect_duration[pre]):
                 duration = effect_duration[pre][duration_idx]
+                # print("duration:",duration)
+                # print("action_idx:",action_idx)
                 # if the first action <= first valid effect duration, move on to find next action for this duration
                 if action_idx <= duration[0]:
                     idx_in_actions += 1
+                    if idx_in_actions >= len(actions):
+                        break
                     action_idx = actions[idx_in_actions]
                 # find all actions in precondition_dict that fall into this duration
                 while action_idx > duration[0] and (duration[1]==-1 or action_idx <= duration[1]):

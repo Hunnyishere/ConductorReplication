@@ -270,6 +270,9 @@ function createAction(act_idx){
 }
 
 function savePlan(){
+    // avoid one button binds multiple plans
+    $("#btn_group_1 > #save_plan_button").remove();
+    $("#btn_group_1").append(`<button class="btn btn-secondary" id="save_plan_button">Save Plan</button>`);
     $("#save_plan_button").click(function(){
         $.ajax({
             type: "POST",

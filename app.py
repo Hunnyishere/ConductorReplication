@@ -17,10 +17,12 @@ app.config['PLAN_FILETYPES'] = {'txt'}
 app.config.from_object(__name__)
 Session(app)
 
+
 # entrance
 @app.route("/")
 def entrance():
     return render_template('entrance.html')
+
 
 # modified from: https://flask.palletsprojects.com/en/1.1.x/patterns/fileuploads/
 def fileIsAllowed(filename, filetype):
@@ -30,8 +32,9 @@ def fileIsAllowed(filename, filetype):
         allowed_filetypes = app.config['PLAN_FILETYPES']
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in allowed_filetypes
 
+
 # load plan from uploaded plan file
-@app.route("/loadPlan", methods = ["POST"])
+@app.route("/loadPlan", methods=["POST"])
 def loadPlan():
     # upload files submitted
     # modified from: https://flask.palletsprojects.com/en/1.1.x/patterns/fileuploads/
@@ -44,7 +47,8 @@ def loadPlan():
     if domain_f == '' or problem_f == '' or plan_f == '':
         print('No domainFile / problemFile / planFile selected.')
         return redirect('/')
-    if fileIsAllowed(domain_f.filename, 'domain') and fileIsAllowed(problem_f.filename, 'problem') and fileIsAllowed(plan_f.filename, 'plan'):
+    if fileIsAllowed(domain_f.filename, 'domain') and fileIsAllowed(problem_f.filename, 'problem') and fileIsAllowed(
+            plan_f.filename, 'plan'):
         # domain file
         domain_filename = secure_filename(domain_f.filename)
         domain_savepath = os.path.join(app.config['UPLOAD_DIR'], domain_filename)
@@ -68,8 +72,9 @@ def loadPlan():
     plg = json.loads(session['plg'])
     return render_template('index.html', data=plg['data'])
 
+
 # generate plan from online planner with uploaded domain file and problem file
-@app.route("/generatePlan", methods = ["POST"])
+@app.route("/generatePlan", methods=["POST"])
 def generatePlan():
     # upload files submitted
     # modified from: https://flask.palletsprojects.com/en/1.1.x/patterns/fileuploads/
@@ -78,10 +83,10 @@ def generatePlan():
         return redirect('/')
     domain_f = request.files['domainFile']
     problem_f = request.files['problemFile']
-    if domain_f=='' or problem_f=='':
+    if domain_f == '' or problem_f == '':
         flash('No domainFile or problemFile selected.')
         return redirect('/')
-    if fileIsAllowed(domain_f.filename,'domain') and fileIsAllowed(problem_f.filename,'problem'):
+    if fileIsAllowed(domain_f.filename, 'domain') and fileIsAllowed(problem_f.filename, 'problem'):
         domain_filename = secure_filename(domain_f.filename)
         domain_savepath = os.path.join(app.config['UPLOAD_DIR'], domain_filename)
         domain_f.save(domain_savepath)
@@ -100,6 +105,7 @@ def generatePlan():
     plg = json.loads(session['plg'])
     return render_template('index.html', data=plg['data'])
 
+
 # create planning visualization
 def createPlanning():
     if 'plan_file' in session:
@@ -112,18 +118,20 @@ def createPlanning():
     plg.all_in_dict()
     session['plg'] = plg.toJson()
 
+
 def restorePLG():
     plg = plan_generator.PlanGenerator(stored_plg=json.loads(session['plg']))
     return plg
 
+
 # add new action
-@app.route("/add_new_action", methods = ["POST"])
+@app.route("/add_new_action", methods=["POST"])
 def add_new_action():
     new_action = request.json["new_action"]
     insert_idx = request.json["insert_idx"]
     # insert_idx starts with 0=initial_state
     plg = restorePLG()
-    plg.action_list.insert(insert_idx-1, new_action)
+    plg.action_list.insert(insert_idx - 1, new_action)
 
     plg.load_pddl()
     plg.create_precondition_dict()
@@ -133,8 +141,9 @@ def add_new_action():
     session['plg'] = plg.toJson()
     return jsonify(plg.data)
 
+
 # reorder action
-@app.route("/reorder_action", methods = ["POST"])
+@app.route("/reorder_action", methods=["POST"])
 def reorder_action():
     # request.json["delete_idx"] counts initial_state
     new_order = request.json["new_order"]
@@ -143,8 +152,8 @@ def reorder_action():
     for idx in new_order:
         new_idx = int(idx)
         # not initial state and goal state
-        if new_idx!=0 and new_idx!=(len(plg.action_list)+1):
-            new_action_list.append(plg.action_list[new_idx-1])
+        if new_idx != 0 and new_idx != (len(plg.action_list) + 1):
+            new_action_list.append(plg.action_list[new_idx - 1])
     plg.action_list = new_action_list
 
     plg.load_pddl()
@@ -155,11 +164,12 @@ def reorder_action():
     session['plg'] = plg.toJson()
     return jsonify(plg.data)
 
+
 # delete action
-@app.route("/delete_action", methods = ["POST"])
+@app.route("/delete_action", methods=["POST"])
 def delete_action():
     # request.json["delete_idx"] counts initial_state
-    delete_idx = int(request.json["delete_idx"])-1
+    delete_idx = int(request.json["delete_idx"]) - 1
     plg = restorePLG()
     plg.action_list.pop(delete_idx)
 
@@ -171,19 +181,21 @@ def delete_action():
     session['plg'] = plg.toJson()
     return jsonify(plg.data)
 
+
 # save plan
-@app.route("/save_plan", methods = ["POST"])
+@app.route("/save_plan", methods=["POST"])
 def save_plan():
     plg = restorePLG()
     plan_savepath = os.path.join(app.config['SAVE_DIR'], "plan.txt")
-    plan_f = open(plan_savepath,'w')
+    plan_f = open(plan_savepath, 'w')
     for action in plg.action_list:
-        plan_f.write('('+' '.join(action)+')\n')
+        plan_f.write('(' + ' '.join(action) + ')\n')
     plan_f.close()
     return send_file(plan_savepath, mimetype='text/plain', attachment_filename='plan.txt', as_attachment=True)
 
+
 # add precondition / effect
-@app.route("/add_pre", methods = ["POST"])
+@app.route("/add_pre", methods=["POST"])
 def add_pre():
     act_idx = int(request.json["act_idx"])
     target_name = request.json["target_name"]
@@ -215,8 +227,9 @@ def add_pre():
     session['plg'] = plg.toJson()
     return jsonify(plg.data)
 
+
 # delete precondition
-@app.route("/delete_pre", methods = ["POST"])
+@app.route("/delete_pre", methods=["POST"])
 def delete_pre():
     act_idx = int(request.json["act_idx"])
     plg = restorePLG()
@@ -252,8 +265,9 @@ def delete_pre():
     session['plg'] = plg.toJson()
     return jsonify(plg.data)
 
+
 # reset planning to original robot plan
-@app.route("/reset_planning", methods = ["POST"])
+@app.route("/reset_planning", methods=["POST"])
 def reset_planning():
     plg = restorePLG()
     plg.action_list = copy.deepcopy(plg.robot_action_list)

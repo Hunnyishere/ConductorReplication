@@ -4,6 +4,7 @@ import json
 from pddl_parser.planner import *
 import pddl_parser.PDDL
 
+
 class PlanGenerator:
     def __init__(self, domain_file=None, problem_file=None, plan_file=None, stored_plg=None):
         # print("domain_file:",domain_file)
@@ -39,10 +40,10 @@ class PlanGenerator:
     # generate action_list in plan from file
     def generate_plan_from_file(self):
         action_list = []
-        f = open(self.plan_file,'r')
+        f = open(self.plan_file, 'r')
         for line in f.readlines():
             line = line.strip()
-            action = re.match(r'\((.*)\)',line).group(1)
+            action = re.match(r'\((.*)\)', line).group(1)
             action_list.append(action.split(" "))
         self.action_list = action_list
         self.robot_action_list = copy.deepcopy(action_list)
@@ -131,8 +132,10 @@ class PlanGenerator:
             precondition_list.extend([pre for pre in pos_preconditions if pre not in precondition_list])
             precondition_list.extend([pre for pre in neg_preconditions if pre not in precondition_list])
         # goal state
-        precondition_list.extend([pre for pre in self.action_dict["Goal State"]["Precondition"]["pos"] if pre not in precondition_list])
-        precondition_list.extend([pre for pre in self.action_dict["Goal State"]["Precondition"]["neg"] if pre not in precondition_list])
+        precondition_list.extend(
+            [pre for pre in self.action_dict["Goal State"]["Precondition"]["pos"] if pre not in precondition_list])
+        precondition_list.extend(
+            [pre for pre in self.action_dict["Goal State"]["Precondition"]["neg"] if pre not in precondition_list])
         # precondition_list.extend([pre for pre in parser.positive_goals if pre not in precondition_list])
         # precondition_list.extend([pre for pre in parser.negative_goals if pre not in precondition_list])
         self.precondition_list = self.list2str_list(precondition_list)
@@ -208,8 +211,6 @@ class PlanGenerator:
         # change action_dict to only store ids
         self.create_action_dict_id()
 
-
-
     def create_selects(self, parser):
         self.getDomainTypes(parser.types)
         self.getDomainObjects(parser.objects)
@@ -279,7 +280,7 @@ class PlanGenerator:
                 if pre not in precondition_dict.keys():
                     precondition_dict[pre] = []
                 # multiple steps using the same action, use the first not appeared
-                act_indices = [i for i,act in enumerate(self.data["action_list"]) if act==action]
+                act_indices = [i for i, act in enumerate(self.data["action_list"]) if act == action]
                 appeared_indices = [idx for i, idx in enumerate(precondition_dict[pre]) if idx in act_indices]
                 precondition_dict[pre].append(act_indices[len(appeared_indices)])
                 # print("pre, action:",pre,action)
@@ -291,7 +292,7 @@ class PlanGenerator:
         effect_duration = {}
         visited_neg_effects = {}
         temp_action_list = copy.deepcopy(self.action_list)
-        temp_action_list.insert(0,"Initial State")
+        temp_action_list.insert(0, "Initial State")
         temp_action_list.append("Goal State")
         for i in range(len(temp_action_list)):
             action = str(temp_action_list[i])
@@ -299,7 +300,7 @@ class PlanGenerator:
                 pos_eff = self.effect_list[pos_eff_idx]
                 if pos_eff not in effect_duration.keys():
                     effect_duration[pos_eff] = []
-                effect_duration[pos_eff].append([i,-1])
+                effect_duration[pos_eff].append([i, -1])
             for neg_eff_idx in self.action_dict_id[action]["Effect"]["neg"]:
                 neg_eff = self.effect_list[neg_eff_idx]
                 if neg_eff not in visited_neg_effects.keys():
@@ -312,11 +313,11 @@ class PlanGenerator:
                         effect_duration[neg_eff][-1][1] = i
                         visited_neg_effects[neg_eff].append(last_duration)
 
-        print("old effect duration:\n",effect_duration)
+        # print("old effect duration:\n",effect_duration)
         # update end of duration to the last action that needs it
         new_effect_duration = {}
-        print("precondition_dict:",self.precondition_dict)
-        for pre,actions in self.precondition_dict.items():
+        # print("precondition_dict:",self.precondition_dict)
+        for pre, actions in self.precondition_dict.items():
             # print("pre, actions:", pre, actions)
             new_effect_duration[pre] = []
             idx_in_actions = 0
@@ -337,7 +338,7 @@ class PlanGenerator:
                         break
                     action_idx = actions[idx_in_actions]
                 # find all actions in precondition_dict that fall into this duration
-                while action_idx > duration[0] and (duration[1]==-1 or action_idx <= duration[1]):
+                while action_idx > duration[0] and (duration[1] == -1 or action_idx <= duration[1]):
                     last_action_idx = action_idx
                     # search for next action
                     idx_in_actions += 1
@@ -345,12 +346,12 @@ class PlanGenerator:
                         break
                     action_idx = actions[idx_in_actions]
                 if last_action_idx != -2:
-                    new_effect_duration[pre].append([duration[0],last_action_idx])
+                    new_effect_duration[pre].append([duration[0], last_action_idx])
                 duration_idx += 1
                 last_action_idx = -2
                 if idx_in_actions >= len(actions):
                     break
-        #print(new_effect_duration)
+        # print(new_effect_duration)
         self.effect_duration = new_effect_duration
 
     def list2str_list(self, myList):

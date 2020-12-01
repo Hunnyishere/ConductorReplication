@@ -1,5 +1,5 @@
-function removeAction(){
-    $(".action_delete_button").click(function(){
+function removeAction() {
+    $(".action_delete_button").click(function () {
         $.ajax({
             type: "POST",
             contentType: "application/json; charset=utf-8",

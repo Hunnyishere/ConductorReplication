@@ -1,34 +1,34 @@
-function deletePreOrEff(){
-    $(".pos-pre_delete_button").each(function(){
-        $(this).click(function(){
+function deletePreOrEff() {
+    $(".pos-pre_delete_button").each(function () {
+        $(this).click(function () {
             let [act_idx, pre_idx] = this.id.split('-');
             sendDeleteRequest("pos-pre", act_idx, pre_idx);
         });
     });
 
-    $(".neg-pre_delete_button").each(function(){
-        $(this).click(function(){
+    $(".neg-pre_delete_button").each(function () {
+        $(this).click(function () {
             let [act_idx, pre_idx] = this.id.split('-');
             sendDeleteRequest("neg-pre", act_idx, pre_idx);
         });
     });
 
-    $(".pos-eff_delete_button").each(function(){
-        $(this).click(function(){
+    $(".pos-eff_delete_button").each(function () {
+        $(this).click(function () {
             let [act_idx, eff_idx] = this.id.split('-');
             sendDeleteRequest("pos-eff", act_idx, eff_idx);
         });
     });
 
-    $(".neg-eff_delete_button").each(function(){
-        $(this).click(function(){
+    $(".neg-eff_delete_button").each(function () {
+        $(this).click(function () {
             let [act_idx, eff_idx] = this.id.split('-');
             sendDeleteRequest("neg-eff", act_idx, eff_idx);
         });
     });
 }
 
-function sendDeleteRequest(target_name, act_idx, pre_idx){
+function sendDeleteRequest(target_name, act_idx, pre_idx) {
     $.ajax({
         type: "POST",
         contentType: "application/json; charset=utf-8",

@@ -1,5 +1,5 @@
-function expandPlanning(){
-    $("#expand_planning_button").click(function(){
+function expandPlanning() {
+    $("#expand_planning_button").click(function () {
         $(".temp-svg").remove();
         $(".link-row").show();
         $(".pos-pre-btn, .neg-pre-btn, .pos-eff-btn, neg-eff-btn").removeClass("btn-danger");
@@ -7,8 +7,8 @@ function expandPlanning(){
     });
 }
 
-function resetPlanning(){
-    $("#reset_planning_button").click(function(){
+function resetPlanning() {
+    $("#reset_planning_button").click(function () {
         $.ajax({
             type: "POST",
             contentType: "application/json; charset=utf-8",

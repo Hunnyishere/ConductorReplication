@@ -1,4 +1,4 @@
-$("#generatePlanBtn").click(function(){
+$("#generatePlanBtn").click(function () {
     $("#loadPlanBtn").removeClass("active");
     $("#generatePlanBtn").addClass("active");
     $("#formArea").empty();
@@ -16,7 +16,7 @@ $("#generatePlanBtn").click(function(){
                 </form>`);
 });
 
-$("#loadPlanBtn").click(function(){
+$("#loadPlanBtn").click(function () {
     $("#generatePlanBtn").removeClass("active");
     $("#loadPlanBtn").addClass("active");
     $("#formArea").empty();

@@ -1,22 +1,10 @@
 # Conductor Replication
-This is a replication of Conductor from paper "In-situ Domain Modeling with Fact Routes".(https://personal.traclabs.com/~korten/publications/ICAPS_MARSHAL.pdf)
+This project replicates the functionalities of Conductor from paper ["In-situ Domain Modeling with Fact Routes"](https://personal.traclabs.com/~korten/publications/ICAPS_MARSHAL.pdf) and includes some feature adjustments to make the system more intuitive to use and more generalizable.  
 
-This tool visualizes plans like an example plan generated "prob04.pddl" and "robot.pddl" under "BlocksWorld" or "Logistics" folder.  
-Here's a screenshot for this example plan in BlocksWorld visualized in this tool:  
-![image](https://github.com/Hunnyishere/ConductorReplication/blob/master/images/example-1.png)  
-On the left side, the blocks represent actions, different color bars are different preconditions for each state.  
+Introduction to this project:  
+[slides](https://drive.google.com/file/d/1ShQdFLgxSx5ml-cz4SZaQnt-tYiED1JS/view?usp=sharing) and [report](https://drive.google.com/file/d/1emvwtPjHVTCR2PoVKsxNZwtALPnkO9we/view?usp=sharing)  
 
-
-When you first load the webpage, the tool is showing the robot model.
-
-You can view preconditions and effects for each action in the middle column. 
-
-Click on preconditions either from the left color bars or from middle buttons, you can see the path flow for each precondition going through all actions.
-![image](https://github.com/Hunnyishere/ConductorReplication/blob/master/images/example-2.png) 
-User can then add, reorder, remove actions, and edit action preconditions and effects to get a version of human model.  
-
-After these operations, this tool will highlight what preconditions are missing for the plan in the human model as red caps like here:  
-![image](https://github.com/Hunnyishere/ConductorReplication/blob/master/images/example-3.jpg)
-
-To run this implementation, open a terminal, run "python main.py" in the base directory.
-After you see "Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)", open "http://localhost:5000/" on browser to see the tool.
+To run this implementation, open a terminal, run "python app.py" in the base directory.  
+After you see "Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)", open "http://localhost:5000/" on browser to see the tool.  
+You can upload files from BlocksWorld and Logistics folders to test the tool.  
+(Plan generation in logistics domain might run into some issue due to the limitation of the integrated online parser, just use the existing plan in the folder.)

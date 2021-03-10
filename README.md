@@ -1,4 +1,4 @@
-# Conductor Replication
+# Visualization Tool in Explainable Planning
 This project replicates the functionalities of Conductor from paper ["In-situ Domain Modeling with Fact Routes"](https://personal.traclabs.com/~korten/publications/ICAPS_MARSHAL.pdf) and includes some feature adjustments to make the system more intuitive to use and more generalizable.  
 
 Introduction to this project:  
